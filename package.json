@@ -1,20 +1,27 @@
 {
   "name": "taengmo-ui",
-  "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "style": "./dist/index.css",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "style": "./dist/index.css",
+      "import": "./dist/index.js"
+    }
+  },
   "files": [
     "dist"
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && tsc -p tsconfig.build.json",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "clean": "rm -rf dist"
   },
   "peerDependencies": {
     "react": "^19.0.0",
