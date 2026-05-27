@@ -1,3 +1,5 @@
 @theme {
   --color-primary-dev: #9ccf23;
+  --color-primary-hover: #86b51d;
+  --radius-button: 0.375rem;
 }
