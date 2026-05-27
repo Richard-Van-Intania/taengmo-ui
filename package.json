@@ -1,6 +1,6 @@
 {
   "name": "taengmo-ui",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -22,10 +22,6 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "clean": "rm -rf dist"
-  },
-  "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
   },
   "dependencies": {
     "react": "^19.2.6",
