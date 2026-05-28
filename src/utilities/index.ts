@@ -1,8 +1,2 @@
-export class HttpError extends Error {
-  status: number;
-
-  constructor(status: number) {
-    super();
-    this.status = status;
-  }
-}
+export * from "./httpError";
+export * from "./statics";

@@ -1,15 +1,1766 @@
-import { jsx as e } from "react/jsx-runtime";
-//#region src/components/MyButton.tsx
+//#region src/uis/buttonsScale.ts
+var e = {
+	SMALL: "small",
+	MEDIUM: "medium",
+	LARGE: "large"
+};
 function t(t) {
-	return /* @__PURE__ */ e("button", {
-		...t,
-		className: "\n        bg-primary-dev\n        hover:bg-(--color-primary-hover)\n        text-black\n        px-4\n        py-2\n        rounded-(--radius-button)\n        transition-colors\n      ",
-		children: "BTJAAAA222"
-	});
+	switch (t) {
+		case e.SMALL: return "h-8";
+		case e.MEDIUM: return "h-10";
+		case e.LARGE: return "h-14";
+	}
+}
+function n(t) {
+	switch (t) {
+		case e.SMALL: return "text-[14px]";
+		case e.MEDIUM: return "text-[15px]";
+		case e.LARGE: return "text-[16px]";
+	}
+}
+function r(t) {
+	switch (t) {
+		case e.SMALL: return 16;
+		case e.MEDIUM: return 20;
+		case e.LARGE: return 24;
+	}
+}
+//#endregion
+//#region node_modules/clsx/dist/clsx.mjs
+function i(e) {
+	var t, n, r = "";
+	if (typeof e == "string" || typeof e == "number") r += e;
+	else if (typeof e == "object") if (Array.isArray(e)) {
+		var a = e.length;
+		for (t = 0; t < a; t++) e[t] && (n = i(e[t])) && (r && (r += " "), r += n);
+	} else for (n in e) e[n] && (r && (r += " "), r += n);
+	return r;
+}
+function a() {
+	for (var e, t, n = 0, r = "", a = arguments.length; n < a; n++) (e = arguments[n]) && (t = i(e)) && (r && (r += " "), r += t);
+	return r;
+}
+//#endregion
+//#region node_modules/tailwind-merge/dist/bundle-mjs.mjs
+var o = (e, t) => {
+	let n = Array(e.length + t.length);
+	for (let t = 0; t < e.length; t++) n[t] = e[t];
+	for (let r = 0; r < t.length; r++) n[e.length + r] = t[r];
+	return n;
+}, s = (e, t) => ({
+	classGroupId: e,
+	validator: t
+}), c = (e = /* @__PURE__ */ new Map(), t = null, n) => ({
+	nextPart: e,
+	validators: t,
+	classGroupId: n
+}), l = "-", u = [], d = "arbitrary..", ee = (e) => {
+	let t = p(e), { conflictingClassGroups: n, conflictingClassGroupModifiers: r } = e;
+	return {
+		getClassGroupId: (e) => {
+			if (e.startsWith("[") && e.endsWith("]")) return te(e);
+			let n = e.split(l);
+			return f(n, +(n[0] === "" && n.length > 1), t);
+		},
+		getConflictingClassGroupIds: (e, t) => {
+			if (t) {
+				let t = r[e], i = n[e];
+				return t ? i ? o(i, t) : t : i || u;
+			}
+			return n[e] || u;
+		}
+	};
+}, f = (e, t, n) => {
+	if (e.length - t === 0) return n.classGroupId;
+	let r = e[t], i = n.nextPart.get(r);
+	if (i) {
+		let n = f(e, t + 1, i);
+		if (n) return n;
+	}
+	let a = n.validators;
+	if (a === null) return;
+	let o = t === 0 ? e.join(l) : e.slice(t).join(l), s = a.length;
+	for (let e = 0; e < s; e++) {
+		let t = a[e];
+		if (t.validator(o)) return t.classGroupId;
+	}
+}, te = (e) => e.slice(1, -1).indexOf(":") === -1 ? void 0 : (() => {
+	let t = e.slice(1, -1), n = t.indexOf(":"), r = t.slice(0, n);
+	return r ? d + r : void 0;
+})(), p = (e) => {
+	let { theme: t, classGroups: n } = e;
+	return m(n, t);
+}, m = (e, t) => {
+	let n = c();
+	for (let r in e) {
+		let i = e[r];
+		h(i, n, r, t);
+	}
+	return n;
+}, h = (e, t, n, r) => {
+	let i = e.length;
+	for (let a = 0; a < i; a++) {
+		let i = e[a];
+		g(i, t, n, r);
+	}
+}, g = (e, t, n, r) => {
+	if (typeof e == "string") {
+		_(e, t, n);
+		return;
+	}
+	if (typeof e == "function") {
+		v(e, t, n, r);
+		return;
+	}
+	y(e, t, n, r);
+}, _ = (e, t, n) => {
+	let r = e === "" ? t : b(t, e);
+	r.classGroupId = n;
+}, v = (e, t, n, r) => {
+	if (ne(e)) {
+		h(e(r), t, n, r);
+		return;
+	}
+	t.validators === null && (t.validators = []), t.validators.push(s(n, e));
+}, y = (e, t, n, r) => {
+	let i = Object.entries(e), a = i.length;
+	for (let e = 0; e < a; e++) {
+		let [a, o] = i[e];
+		h(o, b(t, a), n, r);
+	}
+}, b = (e, t) => {
+	let n = e, r = t.split(l), i = r.length;
+	for (let e = 0; e < i; e++) {
+		let t = r[e], i = n.nextPart.get(t);
+		i || (i = c(), n.nextPart.set(t, i)), n = i;
+	}
+	return n;
+}, ne = (e) => "isThemeGetter" in e && e.isThemeGetter === !0, x = (e) => {
+	if (e < 1) return {
+		get: () => void 0,
+		set: () => {}
+	};
+	let t = 0, n = Object.create(null), r = Object.create(null), i = (i, a) => {
+		n[i] = a, t++, t > e && (t = 0, r = n, n = Object.create(null));
+	};
+	return {
+		get(e) {
+			let t = n[e];
+			if (t !== void 0) return t;
+			if ((t = r[e]) !== void 0) return i(e, t), t;
+		},
+		set(e, t) {
+			e in n ? n[e] = t : i(e, t);
+		}
+	};
+}, S = "!", C = ":", re = [], w = (e, t, n, r, i) => ({
+	modifiers: e,
+	hasImportantModifier: t,
+	baseClassName: n,
+	maybePostfixModifierPosition: r,
+	isExternal: i
+}), ie = (e) => {
+	let { prefix: t, experimentalParseClassName: n } = e, r = (e) => {
+		let t = [], n = 0, r = 0, i = 0, a, o = e.length;
+		for (let s = 0; s < o; s++) {
+			let o = e[s];
+			if (n === 0 && r === 0) {
+				if (o === C) {
+					t.push(e.slice(i, s)), i = s + 1;
+					continue;
+				}
+				if (o === "/") {
+					a = s;
+					continue;
+				}
+			}
+			o === "[" ? n++ : o === "]" ? n-- : o === "(" ? r++ : o === ")" && r--;
+		}
+		let s = t.length === 0 ? e : e.slice(i), c = s, l = !1;
+		s.endsWith(S) ? (c = s.slice(0, -1), l = !0) : s.startsWith(S) && (c = s.slice(1), l = !0);
+		let u = a && a > i ? a - i : void 0;
+		return w(t, l, c, u);
+	};
+	if (t) {
+		let e = t + C, n = r;
+		r = (t) => t.startsWith(e) ? n(t.slice(e.length)) : w(re, !1, t, void 0, !0);
+	}
+	if (n) {
+		let e = r;
+		r = (t) => n({
+			className: t,
+			parseClassName: e
+		});
+	}
+	return r;
+}, T = (e) => {
+	let t = /* @__PURE__ */ new Map();
+	return e.orderSensitiveModifiers.forEach((e, n) => {
+		t.set(e, 1e6 + n);
+	}), (e) => {
+		let n = [], r = [];
+		for (let i = 0; i < e.length; i++) {
+			let a = e[i], o = a[0] === "[", s = t.has(a);
+			o || s ? (r.length > 0 && (r.sort(), n.push(...r), r = []), n.push(a)) : r.push(a);
+		}
+		return r.length > 0 && (r.sort(), n.push(...r)), n;
+	};
+}, E = (e) => ({
+	cache: x(e.cacheSize),
+	parseClassName: ie(e),
+	sortModifiers: T(e),
+	postfixLookupClassGroupIds: D(e),
+	...ee(e)
+}), D = (e) => {
+	let t = Object.create(null), n = e.postfixLookupClassGroups;
+	if (n) for (let e = 0; e < n.length; e++) t[n[e]] = !0;
+	return t;
+}, O = /\s+/, k = (e, t) => {
+	let { parseClassName: n, getClassGroupId: r, getConflictingClassGroupIds: i, sortModifiers: a, postfixLookupClassGroupIds: o } = t, s = [], c = e.trim().split(O), l = "";
+	for (let e = c.length - 1; e >= 0; --e) {
+		let t = c[e], { isExternal: u, modifiers: d, hasImportantModifier: ee, baseClassName: f, maybePostfixModifierPosition: te } = n(t);
+		if (u) {
+			l = t + (l.length > 0 ? " " + l : l);
+			continue;
+		}
+		let p = !!te, m;
+		if (p) {
+			m = r(f.substring(0, te));
+			let e = m && o[m] ? r(f) : void 0;
+			e && e !== m && (m = e, p = !1);
+		} else m = r(f);
+		if (!m) {
+			if (!p) {
+				l = t + (l.length > 0 ? " " + l : l);
+				continue;
+			}
+			if (m = r(f), !m) {
+				l = t + (l.length > 0 ? " " + l : l);
+				continue;
+			}
+			p = !1;
+		}
+		let h = d.length === 0 ? "" : d.length === 1 ? d[0] : a(d).join(":"), g = ee ? h + S : h, _ = g + m;
+		if (s.indexOf(_) > -1) continue;
+		s.push(_);
+		let v = i(m, p);
+		for (let e = 0; e < v.length; ++e) {
+			let t = v[e];
+			s.push(g + t);
+		}
+		l = t + (l.length > 0 ? " " + l : l);
+	}
+	return l;
+}, A = (...e) => {
+	let t = 0, n, r, i = "";
+	for (; t < e.length;) (n = e[t++]) && (r = j(n)) && (i && (i += " "), i += r);
+	return i;
+}, j = (e) => {
+	if (typeof e == "string") return e;
+	let t, n = "";
+	for (let r = 0; r < e.length; r++) e[r] && (t = j(e[r])) && (n && (n += " "), n += t);
+	return n;
+}, ae = (e, ...t) => {
+	let n, r, i, a, o = (o) => (n = E(t.reduce((e, t) => t(e), e())), r = n.cache.get, i = n.cache.set, a = s, s(o)), s = (e) => {
+		let t = r(e);
+		if (t) return t;
+		let a = k(e, n);
+		return i(e, a), a;
+	};
+	return a = o, (...e) => a(A(...e));
+}, oe = [], M = (e) => {
+	let t = (t) => t[e] || oe;
+	return t.isThemeGetter = !0, t;
+}, N = /^\[(?:(\w[\w-]*):)?(.+)\]$/i, P = /^\((?:(\w[\w-]*):)?(.+)\)$/i, F = /^\d+(?:\.\d+)?\/\d+(?:\.\d+)?$/, I = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/, L = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/, se = /^(rgba?|hsla?|hwb|(ok)?(lab|lch)|color-mix)\(.+\)$/, R = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/, ce = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/, z = (e) => F.test(e), B = (e) => !!e && !Number.isNaN(Number(e)), V = (e) => !!e && Number.isInteger(Number(e)), le = (e) => e.endsWith("%") && B(e.slice(0, -1)), H = (e) => I.test(e), ue = () => !0, U = (e) => L.test(e) && !se.test(e), W = () => !1, G = (e) => R.test(e), K = (e) => ce.test(e), de = (e) => !q(e) && !X(e), fe = (e) => e.startsWith("@container") && (e[10] === "/" && e[11] !== void 0 || e[11] === "s" && e[16] !== void 0 && e.startsWith("-size/", 10) || e[11] === "n" && e[18] !== void 0 && e.startsWith("-normal/", 10)), pe = (e) => Q(e, De, W), q = (e) => N.test(e), J = (e) => Q(e, Oe, U), me = (e) => Q(e, ke, B), he = (e) => Q(e, je, ue), ge = (e) => Q(e, Ae, W), _e = (e) => Q(e, Te, W), ve = (e) => Q(e, Ee, K), Y = (e) => Q(e, Me, G), X = (e) => P.test(e), Z = (e) => $(e, Oe), ye = (e) => $(e, Ae), be = (e) => $(e, Te), xe = (e) => $(e, De), Se = (e) => $(e, Ee), Ce = (e) => $(e, Me, !0), we = (e) => $(e, je, !0), Q = (e, t, n) => {
+	let r = N.exec(e);
+	return r ? r[1] ? t(r[1]) : n(r[2]) : !1;
+}, $ = (e, t, n = !1) => {
+	let r = P.exec(e);
+	return r ? r[1] ? t(r[1]) : n : !1;
+}, Te = (e) => e === "position" || e === "percentage", Ee = (e) => e === "image" || e === "url", De = (e) => e === "length" || e === "size" || e === "bg-size", Oe = (e) => e === "length", ke = (e) => e === "number", Ae = (e) => e === "family-name", je = (e) => e === "number" || e === "weight", Me = (e) => e === "shadow", Ne = /* @__PURE__ */ ae(() => {
+	let e = M("color"), t = M("font"), n = M("text"), r = M("font-weight"), i = M("tracking"), a = M("leading"), o = M("breakpoint"), s = M("container"), c = M("spacing"), l = M("radius"), u = M("shadow"), d = M("inset-shadow"), ee = M("text-shadow"), f = M("drop-shadow"), te = M("blur"), p = M("perspective"), m = M("aspect"), h = M("ease"), g = M("animate"), _ = () => [
+		"auto",
+		"avoid",
+		"all",
+		"avoid-page",
+		"page",
+		"left",
+		"right",
+		"column"
+	], v = () => [
+		"center",
+		"top",
+		"bottom",
+		"left",
+		"right",
+		"top-left",
+		"left-top",
+		"top-right",
+		"right-top",
+		"bottom-right",
+		"right-bottom",
+		"bottom-left",
+		"left-bottom"
+	], y = () => [
+		...v(),
+		X,
+		q
+	], b = () => [
+		"auto",
+		"hidden",
+		"clip",
+		"visible",
+		"scroll"
+	], ne = () => [
+		"auto",
+		"contain",
+		"none"
+	], x = () => [
+		X,
+		q,
+		c
+	], S = () => [
+		z,
+		"full",
+		"auto",
+		...x()
+	], C = () => [
+		V,
+		"none",
+		"subgrid",
+		X,
+		q
+	], re = () => [
+		"auto",
+		{ span: [
+			"full",
+			V,
+			X,
+			q
+		] },
+		V,
+		X,
+		q
+	], w = () => [
+		V,
+		"auto",
+		X,
+		q
+	], ie = () => [
+		"auto",
+		"min",
+		"max",
+		"fr",
+		X,
+		q
+	], T = () => [
+		"start",
+		"end",
+		"center",
+		"between",
+		"around",
+		"evenly",
+		"stretch",
+		"baseline",
+		"center-safe",
+		"end-safe"
+	], E = () => [
+		"start",
+		"end",
+		"center",
+		"stretch",
+		"center-safe",
+		"end-safe"
+	], D = () => ["auto", ...x()], O = () => [
+		z,
+		"auto",
+		"full",
+		"dvw",
+		"dvh",
+		"lvw",
+		"lvh",
+		"svw",
+		"svh",
+		"min",
+		"max",
+		"fit",
+		...x()
+	], k = () => [
+		z,
+		"screen",
+		"full",
+		"dvw",
+		"lvw",
+		"svw",
+		"min",
+		"max",
+		"fit",
+		...x()
+	], A = () => [
+		z,
+		"screen",
+		"full",
+		"lh",
+		"dvh",
+		"lvh",
+		"svh",
+		"min",
+		"max",
+		"fit",
+		...x()
+	], j = () => [
+		e,
+		X,
+		q
+	], ae = () => [
+		...v(),
+		be,
+		_e,
+		{ position: [X, q] }
+	], oe = () => ["no-repeat", { repeat: [
+		"",
+		"x",
+		"y",
+		"space",
+		"round"
+	] }], N = () => [
+		"auto",
+		"cover",
+		"contain",
+		xe,
+		pe,
+		{ size: [X, q] }
+	], P = () => [
+		le,
+		Z,
+		J
+	], F = () => [
+		"",
+		"none",
+		"full",
+		l,
+		X,
+		q
+	], I = () => [
+		"",
+		B,
+		Z,
+		J
+	], L = () => [
+		"solid",
+		"dashed",
+		"dotted",
+		"double"
+	], se = () => [
+		"normal",
+		"multiply",
+		"screen",
+		"overlay",
+		"darken",
+		"lighten",
+		"color-dodge",
+		"color-burn",
+		"hard-light",
+		"soft-light",
+		"difference",
+		"exclusion",
+		"hue",
+		"saturation",
+		"color",
+		"luminosity"
+	], R = () => [
+		B,
+		le,
+		be,
+		_e
+	], ce = () => [
+		"",
+		"none",
+		te,
+		X,
+		q
+	], U = () => [
+		"none",
+		B,
+		X,
+		q
+	], W = () => [
+		"none",
+		B,
+		X,
+		q
+	], G = () => [
+		B,
+		X,
+		q
+	], K = () => [
+		z,
+		"full",
+		...x()
+	];
+	return {
+		cacheSize: 500,
+		theme: {
+			animate: [
+				"spin",
+				"ping",
+				"pulse",
+				"bounce"
+			],
+			aspect: ["video"],
+			blur: [H],
+			breakpoint: [H],
+			color: [ue],
+			container: [H],
+			"drop-shadow": [H],
+			ease: [
+				"in",
+				"out",
+				"in-out"
+			],
+			font: [de],
+			"font-weight": [
+				"thin",
+				"extralight",
+				"light",
+				"normal",
+				"medium",
+				"semibold",
+				"bold",
+				"extrabold",
+				"black"
+			],
+			"inset-shadow": [H],
+			leading: [
+				"none",
+				"tight",
+				"snug",
+				"normal",
+				"relaxed",
+				"loose"
+			],
+			perspective: [
+				"dramatic",
+				"near",
+				"normal",
+				"midrange",
+				"distant",
+				"none"
+			],
+			radius: [H],
+			shadow: [H],
+			spacing: ["px", B],
+			text: [H],
+			"text-shadow": [H],
+			tracking: [
+				"tighter",
+				"tight",
+				"normal",
+				"wide",
+				"wider",
+				"widest"
+			]
+		},
+		classGroups: {
+			aspect: [{ aspect: [
+				"auto",
+				"square",
+				z,
+				q,
+				X,
+				m
+			] }],
+			container: ["container"],
+			"container-type": [{ "@container": [
+				"",
+				"normal",
+				"size",
+				X,
+				q
+			] }],
+			"container-named": [fe],
+			columns: [{ columns: [
+				B,
+				q,
+				X,
+				s
+			] }],
+			"break-after": [{ "break-after": _() }],
+			"break-before": [{ "break-before": _() }],
+			"break-inside": [{ "break-inside": [
+				"auto",
+				"avoid",
+				"avoid-page",
+				"avoid-column"
+			] }],
+			"box-decoration": [{ "box-decoration": ["slice", "clone"] }],
+			box: [{ box: ["border", "content"] }],
+			display: [
+				"block",
+				"inline-block",
+				"inline",
+				"flex",
+				"inline-flex",
+				"table",
+				"inline-table",
+				"table-caption",
+				"table-cell",
+				"table-column",
+				"table-column-group",
+				"table-footer-group",
+				"table-header-group",
+				"table-row-group",
+				"table-row",
+				"flow-root",
+				"grid",
+				"inline-grid",
+				"contents",
+				"list-item",
+				"hidden"
+			],
+			sr: ["sr-only", "not-sr-only"],
+			float: [{ float: [
+				"right",
+				"left",
+				"none",
+				"start",
+				"end"
+			] }],
+			clear: [{ clear: [
+				"left",
+				"right",
+				"both",
+				"none",
+				"start",
+				"end"
+			] }],
+			isolation: ["isolate", "isolation-auto"],
+			"object-fit": [{ object: [
+				"contain",
+				"cover",
+				"fill",
+				"none",
+				"scale-down"
+			] }],
+			"object-position": [{ object: y() }],
+			overflow: [{ overflow: b() }],
+			"overflow-x": [{ "overflow-x": b() }],
+			"overflow-y": [{ "overflow-y": b() }],
+			overscroll: [{ overscroll: ne() }],
+			"overscroll-x": [{ "overscroll-x": ne() }],
+			"overscroll-y": [{ "overscroll-y": ne() }],
+			position: [
+				"static",
+				"fixed",
+				"absolute",
+				"relative",
+				"sticky"
+			],
+			inset: [{ inset: S() }],
+			"inset-x": [{ "inset-x": S() }],
+			"inset-y": [{ "inset-y": S() }],
+			start: [{
+				"inset-s": S(),
+				start: S()
+			}],
+			end: [{
+				"inset-e": S(),
+				end: S()
+			}],
+			"inset-bs": [{ "inset-bs": S() }],
+			"inset-be": [{ "inset-be": S() }],
+			top: [{ top: S() }],
+			right: [{ right: S() }],
+			bottom: [{ bottom: S() }],
+			left: [{ left: S() }],
+			visibility: [
+				"visible",
+				"invisible",
+				"collapse"
+			],
+			z: [{ z: [
+				V,
+				"auto",
+				X,
+				q
+			] }],
+			basis: [{ basis: [
+				z,
+				"full",
+				"auto",
+				s,
+				...x()
+			] }],
+			"flex-direction": [{ flex: [
+				"row",
+				"row-reverse",
+				"col",
+				"col-reverse"
+			] }],
+			"flex-wrap": [{ flex: [
+				"nowrap",
+				"wrap",
+				"wrap-reverse"
+			] }],
+			flex: [{ flex: [
+				B,
+				z,
+				"auto",
+				"initial",
+				"none",
+				q
+			] }],
+			grow: [{ grow: [
+				"",
+				B,
+				X,
+				q
+			] }],
+			shrink: [{ shrink: [
+				"",
+				B,
+				X,
+				q
+			] }],
+			order: [{ order: [
+				V,
+				"first",
+				"last",
+				"none",
+				X,
+				q
+			] }],
+			"grid-cols": [{ "grid-cols": C() }],
+			"col-start-end": [{ col: re() }],
+			"col-start": [{ "col-start": w() }],
+			"col-end": [{ "col-end": w() }],
+			"grid-rows": [{ "grid-rows": C() }],
+			"row-start-end": [{ row: re() }],
+			"row-start": [{ "row-start": w() }],
+			"row-end": [{ "row-end": w() }],
+			"grid-flow": [{ "grid-flow": [
+				"row",
+				"col",
+				"dense",
+				"row-dense",
+				"col-dense"
+			] }],
+			"auto-cols": [{ "auto-cols": ie() }],
+			"auto-rows": [{ "auto-rows": ie() }],
+			gap: [{ gap: x() }],
+			"gap-x": [{ "gap-x": x() }],
+			"gap-y": [{ "gap-y": x() }],
+			"justify-content": [{ justify: [...T(), "normal"] }],
+			"justify-items": [{ "justify-items": [...E(), "normal"] }],
+			"justify-self": [{ "justify-self": ["auto", ...E()] }],
+			"align-content": [{ content: ["normal", ...T()] }],
+			"align-items": [{ items: [...E(), { baseline: ["", "last"] }] }],
+			"align-self": [{ self: [
+				"auto",
+				...E(),
+				{ baseline: ["", "last"] }
+			] }],
+			"place-content": [{ "place-content": T() }],
+			"place-items": [{ "place-items": [...E(), "baseline"] }],
+			"place-self": [{ "place-self": ["auto", ...E()] }],
+			p: [{ p: x() }],
+			px: [{ px: x() }],
+			py: [{ py: x() }],
+			ps: [{ ps: x() }],
+			pe: [{ pe: x() }],
+			pbs: [{ pbs: x() }],
+			pbe: [{ pbe: x() }],
+			pt: [{ pt: x() }],
+			pr: [{ pr: x() }],
+			pb: [{ pb: x() }],
+			pl: [{ pl: x() }],
+			m: [{ m: D() }],
+			mx: [{ mx: D() }],
+			my: [{ my: D() }],
+			ms: [{ ms: D() }],
+			me: [{ me: D() }],
+			mbs: [{ mbs: D() }],
+			mbe: [{ mbe: D() }],
+			mt: [{ mt: D() }],
+			mr: [{ mr: D() }],
+			mb: [{ mb: D() }],
+			ml: [{ ml: D() }],
+			"space-x": [{ "space-x": x() }],
+			"space-x-reverse": ["space-x-reverse"],
+			"space-y": [{ "space-y": x() }],
+			"space-y-reverse": ["space-y-reverse"],
+			size: [{ size: O() }],
+			"inline-size": [{ inline: ["auto", ...k()] }],
+			"min-inline-size": [{ "min-inline": ["auto", ...k()] }],
+			"max-inline-size": [{ "max-inline": ["none", ...k()] }],
+			"block-size": [{ block: ["auto", ...A()] }],
+			"min-block-size": [{ "min-block": ["auto", ...A()] }],
+			"max-block-size": [{ "max-block": ["none", ...A()] }],
+			w: [{ w: [
+				s,
+				"screen",
+				...O()
+			] }],
+			"min-w": [{ "min-w": [
+				s,
+				"screen",
+				"none",
+				...O()
+			] }],
+			"max-w": [{ "max-w": [
+				s,
+				"screen",
+				"none",
+				"prose",
+				{ screen: [o] },
+				...O()
+			] }],
+			h: [{ h: [
+				"screen",
+				"lh",
+				...O()
+			] }],
+			"min-h": [{ "min-h": [
+				"screen",
+				"lh",
+				"none",
+				...O()
+			] }],
+			"max-h": [{ "max-h": [
+				"screen",
+				"lh",
+				...O()
+			] }],
+			"font-size": [{ text: [
+				"base",
+				n,
+				Z,
+				J
+			] }],
+			"font-smoothing": ["antialiased", "subpixel-antialiased"],
+			"font-style": ["italic", "not-italic"],
+			"font-weight": [{ font: [
+				r,
+				we,
+				he
+			] }],
+			"font-stretch": [{ "font-stretch": [
+				"ultra-condensed",
+				"extra-condensed",
+				"condensed",
+				"semi-condensed",
+				"normal",
+				"semi-expanded",
+				"expanded",
+				"extra-expanded",
+				"ultra-expanded",
+				le,
+				q
+			] }],
+			"font-family": [{ font: [
+				ye,
+				ge,
+				t
+			] }],
+			"font-features": [{ "font-features": [q] }],
+			"fvn-normal": ["normal-nums"],
+			"fvn-ordinal": ["ordinal"],
+			"fvn-slashed-zero": ["slashed-zero"],
+			"fvn-figure": ["lining-nums", "oldstyle-nums"],
+			"fvn-spacing": ["proportional-nums", "tabular-nums"],
+			"fvn-fraction": ["diagonal-fractions", "stacked-fractions"],
+			tracking: [{ tracking: [
+				i,
+				X,
+				q
+			] }],
+			"line-clamp": [{ "line-clamp": [
+				B,
+				"none",
+				X,
+				me
+			] }],
+			leading: [{ leading: [a, ...x()] }],
+			"list-image": [{ "list-image": [
+				"none",
+				X,
+				q
+			] }],
+			"list-style-position": [{ list: ["inside", "outside"] }],
+			"list-style-type": [{ list: [
+				"disc",
+				"decimal",
+				"none",
+				X,
+				q
+			] }],
+			"text-alignment": [{ text: [
+				"left",
+				"center",
+				"right",
+				"justify",
+				"start",
+				"end"
+			] }],
+			"placeholder-color": [{ placeholder: j() }],
+			"text-color": [{ text: j() }],
+			"text-decoration": [
+				"underline",
+				"overline",
+				"line-through",
+				"no-underline"
+			],
+			"text-decoration-style": [{ decoration: [...L(), "wavy"] }],
+			"text-decoration-thickness": [{ decoration: [
+				B,
+				"from-font",
+				"auto",
+				X,
+				J
+			] }],
+			"text-decoration-color": [{ decoration: j() }],
+			"underline-offset": [{ "underline-offset": [
+				B,
+				"auto",
+				X,
+				q
+			] }],
+			"text-transform": [
+				"uppercase",
+				"lowercase",
+				"capitalize",
+				"normal-case"
+			],
+			"text-overflow": [
+				"truncate",
+				"text-ellipsis",
+				"text-clip"
+			],
+			"text-wrap": [{ text: [
+				"wrap",
+				"nowrap",
+				"balance",
+				"pretty"
+			] }],
+			indent: [{ indent: x() }],
+			"tab-size": [{ tab: [
+				V,
+				X,
+				q
+			] }],
+			"vertical-align": [{ align: [
+				"baseline",
+				"top",
+				"middle",
+				"bottom",
+				"text-top",
+				"text-bottom",
+				"sub",
+				"super",
+				X,
+				q
+			] }],
+			whitespace: [{ whitespace: [
+				"normal",
+				"nowrap",
+				"pre",
+				"pre-line",
+				"pre-wrap",
+				"break-spaces"
+			] }],
+			break: [{ break: [
+				"normal",
+				"words",
+				"all",
+				"keep"
+			] }],
+			wrap: [{ wrap: [
+				"break-word",
+				"anywhere",
+				"normal"
+			] }],
+			hyphens: [{ hyphens: [
+				"none",
+				"manual",
+				"auto"
+			] }],
+			content: [{ content: [
+				"none",
+				X,
+				q
+			] }],
+			"bg-attachment": [{ bg: [
+				"fixed",
+				"local",
+				"scroll"
+			] }],
+			"bg-clip": [{ "bg-clip": [
+				"border",
+				"padding",
+				"content",
+				"text"
+			] }],
+			"bg-origin": [{ "bg-origin": [
+				"border",
+				"padding",
+				"content"
+			] }],
+			"bg-position": [{ bg: ae() }],
+			"bg-repeat": [{ bg: oe() }],
+			"bg-size": [{ bg: N() }],
+			"bg-image": [{ bg: [
+				"none",
+				{
+					linear: [
+						{ to: [
+							"t",
+							"tr",
+							"r",
+							"br",
+							"b",
+							"bl",
+							"l",
+							"tl"
+						] },
+						V,
+						X,
+						q
+					],
+					radial: [
+						"",
+						X,
+						q
+					],
+					conic: [
+						V,
+						X,
+						q
+					]
+				},
+				Se,
+				ve
+			] }],
+			"bg-color": [{ bg: j() }],
+			"gradient-from-pos": [{ from: P() }],
+			"gradient-via-pos": [{ via: P() }],
+			"gradient-to-pos": [{ to: P() }],
+			"gradient-from": [{ from: j() }],
+			"gradient-via": [{ via: j() }],
+			"gradient-to": [{ to: j() }],
+			rounded: [{ rounded: F() }],
+			"rounded-s": [{ "rounded-s": F() }],
+			"rounded-e": [{ "rounded-e": F() }],
+			"rounded-t": [{ "rounded-t": F() }],
+			"rounded-r": [{ "rounded-r": F() }],
+			"rounded-b": [{ "rounded-b": F() }],
+			"rounded-l": [{ "rounded-l": F() }],
+			"rounded-ss": [{ "rounded-ss": F() }],
+			"rounded-se": [{ "rounded-se": F() }],
+			"rounded-ee": [{ "rounded-ee": F() }],
+			"rounded-es": [{ "rounded-es": F() }],
+			"rounded-tl": [{ "rounded-tl": F() }],
+			"rounded-tr": [{ "rounded-tr": F() }],
+			"rounded-br": [{ "rounded-br": F() }],
+			"rounded-bl": [{ "rounded-bl": F() }],
+			"border-w": [{ border: I() }],
+			"border-w-x": [{ "border-x": I() }],
+			"border-w-y": [{ "border-y": I() }],
+			"border-w-s": [{ "border-s": I() }],
+			"border-w-e": [{ "border-e": I() }],
+			"border-w-bs": [{ "border-bs": I() }],
+			"border-w-be": [{ "border-be": I() }],
+			"border-w-t": [{ "border-t": I() }],
+			"border-w-r": [{ "border-r": I() }],
+			"border-w-b": [{ "border-b": I() }],
+			"border-w-l": [{ "border-l": I() }],
+			"divide-x": [{ "divide-x": I() }],
+			"divide-x-reverse": ["divide-x-reverse"],
+			"divide-y": [{ "divide-y": I() }],
+			"divide-y-reverse": ["divide-y-reverse"],
+			"border-style": [{ border: [
+				...L(),
+				"hidden",
+				"none"
+			] }],
+			"divide-style": [{ divide: [
+				...L(),
+				"hidden",
+				"none"
+			] }],
+			"border-color": [{ border: j() }],
+			"border-color-x": [{ "border-x": j() }],
+			"border-color-y": [{ "border-y": j() }],
+			"border-color-s": [{ "border-s": j() }],
+			"border-color-e": [{ "border-e": j() }],
+			"border-color-bs": [{ "border-bs": j() }],
+			"border-color-be": [{ "border-be": j() }],
+			"border-color-t": [{ "border-t": j() }],
+			"border-color-r": [{ "border-r": j() }],
+			"border-color-b": [{ "border-b": j() }],
+			"border-color-l": [{ "border-l": j() }],
+			"divide-color": [{ divide: j() }],
+			"outline-style": [{ outline: [
+				...L(),
+				"none",
+				"hidden"
+			] }],
+			"outline-offset": [{ "outline-offset": [
+				B,
+				X,
+				q
+			] }],
+			"outline-w": [{ outline: [
+				"",
+				B,
+				Z,
+				J
+			] }],
+			"outline-color": [{ outline: j() }],
+			shadow: [{ shadow: [
+				"",
+				"none",
+				u,
+				Ce,
+				Y
+			] }],
+			"shadow-color": [{ shadow: j() }],
+			"inset-shadow": [{ "inset-shadow": [
+				"none",
+				d,
+				Ce,
+				Y
+			] }],
+			"inset-shadow-color": [{ "inset-shadow": j() }],
+			"ring-w": [{ ring: I() }],
+			"ring-w-inset": ["ring-inset"],
+			"ring-color": [{ ring: j() }],
+			"ring-offset-w": [{ "ring-offset": [B, J] }],
+			"ring-offset-color": [{ "ring-offset": j() }],
+			"inset-ring-w": [{ "inset-ring": I() }],
+			"inset-ring-color": [{ "inset-ring": j() }],
+			"text-shadow": [{ "text-shadow": [
+				"none",
+				ee,
+				Ce,
+				Y
+			] }],
+			"text-shadow-color": [{ "text-shadow": j() }],
+			opacity: [{ opacity: [
+				B,
+				X,
+				q
+			] }],
+			"mix-blend": [{ "mix-blend": [
+				...se(),
+				"plus-darker",
+				"plus-lighter"
+			] }],
+			"bg-blend": [{ "bg-blend": se() }],
+			"mask-clip": [{ "mask-clip": [
+				"border",
+				"padding",
+				"content",
+				"fill",
+				"stroke",
+				"view"
+			] }, "mask-no-clip"],
+			"mask-composite": [{ mask: [
+				"add",
+				"subtract",
+				"intersect",
+				"exclude"
+			] }],
+			"mask-image-linear-pos": [{ "mask-linear": [B] }],
+			"mask-image-linear-from-pos": [{ "mask-linear-from": R() }],
+			"mask-image-linear-to-pos": [{ "mask-linear-to": R() }],
+			"mask-image-linear-from-color": [{ "mask-linear-from": j() }],
+			"mask-image-linear-to-color": [{ "mask-linear-to": j() }],
+			"mask-image-t-from-pos": [{ "mask-t-from": R() }],
+			"mask-image-t-to-pos": [{ "mask-t-to": R() }],
+			"mask-image-t-from-color": [{ "mask-t-from": j() }],
+			"mask-image-t-to-color": [{ "mask-t-to": j() }],
+			"mask-image-r-from-pos": [{ "mask-r-from": R() }],
+			"mask-image-r-to-pos": [{ "mask-r-to": R() }],
+			"mask-image-r-from-color": [{ "mask-r-from": j() }],
+			"mask-image-r-to-color": [{ "mask-r-to": j() }],
+			"mask-image-b-from-pos": [{ "mask-b-from": R() }],
+			"mask-image-b-to-pos": [{ "mask-b-to": R() }],
+			"mask-image-b-from-color": [{ "mask-b-from": j() }],
+			"mask-image-b-to-color": [{ "mask-b-to": j() }],
+			"mask-image-l-from-pos": [{ "mask-l-from": R() }],
+			"mask-image-l-to-pos": [{ "mask-l-to": R() }],
+			"mask-image-l-from-color": [{ "mask-l-from": j() }],
+			"mask-image-l-to-color": [{ "mask-l-to": j() }],
+			"mask-image-x-from-pos": [{ "mask-x-from": R() }],
+			"mask-image-x-to-pos": [{ "mask-x-to": R() }],
+			"mask-image-x-from-color": [{ "mask-x-from": j() }],
+			"mask-image-x-to-color": [{ "mask-x-to": j() }],
+			"mask-image-y-from-pos": [{ "mask-y-from": R() }],
+			"mask-image-y-to-pos": [{ "mask-y-to": R() }],
+			"mask-image-y-from-color": [{ "mask-y-from": j() }],
+			"mask-image-y-to-color": [{ "mask-y-to": j() }],
+			"mask-image-radial": [{ "mask-radial": [X, q] }],
+			"mask-image-radial-from-pos": [{ "mask-radial-from": R() }],
+			"mask-image-radial-to-pos": [{ "mask-radial-to": R() }],
+			"mask-image-radial-from-color": [{ "mask-radial-from": j() }],
+			"mask-image-radial-to-color": [{ "mask-radial-to": j() }],
+			"mask-image-radial-shape": [{ "mask-radial": ["circle", "ellipse"] }],
+			"mask-image-radial-size": [{ "mask-radial": [{
+				closest: ["side", "corner"],
+				farthest: ["side", "corner"]
+			}] }],
+			"mask-image-radial-pos": [{ "mask-radial-at": v() }],
+			"mask-image-conic-pos": [{ "mask-conic": [B] }],
+			"mask-image-conic-from-pos": [{ "mask-conic-from": R() }],
+			"mask-image-conic-to-pos": [{ "mask-conic-to": R() }],
+			"mask-image-conic-from-color": [{ "mask-conic-from": j() }],
+			"mask-image-conic-to-color": [{ "mask-conic-to": j() }],
+			"mask-mode": [{ mask: [
+				"alpha",
+				"luminance",
+				"match"
+			] }],
+			"mask-origin": [{ "mask-origin": [
+				"border",
+				"padding",
+				"content",
+				"fill",
+				"stroke",
+				"view"
+			] }],
+			"mask-position": [{ mask: ae() }],
+			"mask-repeat": [{ mask: oe() }],
+			"mask-size": [{ mask: N() }],
+			"mask-type": [{ "mask-type": ["alpha", "luminance"] }],
+			"mask-image": [{ mask: [
+				"none",
+				X,
+				q
+			] }],
+			filter: [{ filter: [
+				"",
+				"none",
+				X,
+				q
+			] }],
+			blur: [{ blur: ce() }],
+			brightness: [{ brightness: [
+				B,
+				X,
+				q
+			] }],
+			contrast: [{ contrast: [
+				B,
+				X,
+				q
+			] }],
+			"drop-shadow": [{ "drop-shadow": [
+				"",
+				"none",
+				f,
+				Ce,
+				Y
+			] }],
+			"drop-shadow-color": [{ "drop-shadow": j() }],
+			grayscale: [{ grayscale: [
+				"",
+				B,
+				X,
+				q
+			] }],
+			"hue-rotate": [{ "hue-rotate": [
+				B,
+				X,
+				q
+			] }],
+			invert: [{ invert: [
+				"",
+				B,
+				X,
+				q
+			] }],
+			saturate: [{ saturate: [
+				B,
+				X,
+				q
+			] }],
+			sepia: [{ sepia: [
+				"",
+				B,
+				X,
+				q
+			] }],
+			"backdrop-filter": [{ "backdrop-filter": [
+				"",
+				"none",
+				X,
+				q
+			] }],
+			"backdrop-blur": [{ "backdrop-blur": ce() }],
+			"backdrop-brightness": [{ "backdrop-brightness": [
+				B,
+				X,
+				q
+			] }],
+			"backdrop-contrast": [{ "backdrop-contrast": [
+				B,
+				X,
+				q
+			] }],
+			"backdrop-grayscale": [{ "backdrop-grayscale": [
+				"",
+				B,
+				X,
+				q
+			] }],
+			"backdrop-hue-rotate": [{ "backdrop-hue-rotate": [
+				B,
+				X,
+				q
+			] }],
+			"backdrop-invert": [{ "backdrop-invert": [
+				"",
+				B,
+				X,
+				q
+			] }],
+			"backdrop-opacity": [{ "backdrop-opacity": [
+				B,
+				X,
+				q
+			] }],
+			"backdrop-saturate": [{ "backdrop-saturate": [
+				B,
+				X,
+				q
+			] }],
+			"backdrop-sepia": [{ "backdrop-sepia": [
+				"",
+				B,
+				X,
+				q
+			] }],
+			"border-collapse": [{ border: ["collapse", "separate"] }],
+			"border-spacing": [{ "border-spacing": x() }],
+			"border-spacing-x": [{ "border-spacing-x": x() }],
+			"border-spacing-y": [{ "border-spacing-y": x() }],
+			"table-layout": [{ table: ["auto", "fixed"] }],
+			caption: [{ caption: ["top", "bottom"] }],
+			transition: [{ transition: [
+				"",
+				"all",
+				"colors",
+				"opacity",
+				"shadow",
+				"transform",
+				"none",
+				X,
+				q
+			] }],
+			"transition-behavior": [{ transition: ["normal", "discrete"] }],
+			duration: [{ duration: [
+				B,
+				"initial",
+				X,
+				q
+			] }],
+			ease: [{ ease: [
+				"linear",
+				"initial",
+				h,
+				X,
+				q
+			] }],
+			delay: [{ delay: [
+				B,
+				X,
+				q
+			] }],
+			animate: [{ animate: [
+				"none",
+				g,
+				X,
+				q
+			] }],
+			backface: [{ backface: ["hidden", "visible"] }],
+			perspective: [{ perspective: [
+				p,
+				X,
+				q
+			] }],
+			"perspective-origin": [{ "perspective-origin": y() }],
+			rotate: [{ rotate: U() }],
+			"rotate-x": [{ "rotate-x": U() }],
+			"rotate-y": [{ "rotate-y": U() }],
+			"rotate-z": [{ "rotate-z": U() }],
+			scale: [{ scale: W() }],
+			"scale-x": [{ "scale-x": W() }],
+			"scale-y": [{ "scale-y": W() }],
+			"scale-z": [{ "scale-z": W() }],
+			"scale-3d": ["scale-3d"],
+			skew: [{ skew: G() }],
+			"skew-x": [{ "skew-x": G() }],
+			"skew-y": [{ "skew-y": G() }],
+			transform: [{ transform: [
+				X,
+				q,
+				"",
+				"none",
+				"gpu",
+				"cpu"
+			] }],
+			"transform-origin": [{ origin: y() }],
+			"transform-style": [{ transform: ["3d", "flat"] }],
+			translate: [{ translate: K() }],
+			"translate-x": [{ "translate-x": K() }],
+			"translate-y": [{ "translate-y": K() }],
+			"translate-z": [{ "translate-z": K() }],
+			"translate-none": ["translate-none"],
+			zoom: [{ zoom: [
+				V,
+				X,
+				q
+			] }],
+			accent: [{ accent: j() }],
+			appearance: [{ appearance: ["none", "auto"] }],
+			"caret-color": [{ caret: j() }],
+			"color-scheme": [{ scheme: [
+				"normal",
+				"dark",
+				"light",
+				"light-dark",
+				"only-dark",
+				"only-light"
+			] }],
+			cursor: [{ cursor: [
+				"auto",
+				"default",
+				"pointer",
+				"wait",
+				"text",
+				"move",
+				"help",
+				"not-allowed",
+				"none",
+				"context-menu",
+				"progress",
+				"cell",
+				"crosshair",
+				"vertical-text",
+				"alias",
+				"copy",
+				"no-drop",
+				"grab",
+				"grabbing",
+				"all-scroll",
+				"col-resize",
+				"row-resize",
+				"n-resize",
+				"e-resize",
+				"s-resize",
+				"w-resize",
+				"ne-resize",
+				"nw-resize",
+				"se-resize",
+				"sw-resize",
+				"ew-resize",
+				"ns-resize",
+				"nesw-resize",
+				"nwse-resize",
+				"zoom-in",
+				"zoom-out",
+				X,
+				q
+			] }],
+			"field-sizing": [{ "field-sizing": ["fixed", "content"] }],
+			"pointer-events": [{ "pointer-events": ["auto", "none"] }],
+			resize: [{ resize: [
+				"none",
+				"",
+				"y",
+				"x"
+			] }],
+			"scroll-behavior": [{ scroll: ["auto", "smooth"] }],
+			"scrollbar-thumb-color": [{ "scrollbar-thumb": j() }],
+			"scrollbar-track-color": [{ "scrollbar-track": j() }],
+			"scrollbar-gutter": [{ "scrollbar-gutter": [
+				"auto",
+				"stable",
+				"both"
+			] }],
+			"scrollbar-w": [{ scrollbar: [
+				"auto",
+				"thin",
+				"none"
+			] }],
+			"scroll-m": [{ "scroll-m": x() }],
+			"scroll-mx": [{ "scroll-mx": x() }],
+			"scroll-my": [{ "scroll-my": x() }],
+			"scroll-ms": [{ "scroll-ms": x() }],
+			"scroll-me": [{ "scroll-me": x() }],
+			"scroll-mbs": [{ "scroll-mbs": x() }],
+			"scroll-mbe": [{ "scroll-mbe": x() }],
+			"scroll-mt": [{ "scroll-mt": x() }],
+			"scroll-mr": [{ "scroll-mr": x() }],
+			"scroll-mb": [{ "scroll-mb": x() }],
+			"scroll-ml": [{ "scroll-ml": x() }],
+			"scroll-p": [{ "scroll-p": x() }],
+			"scroll-px": [{ "scroll-px": x() }],
+			"scroll-py": [{ "scroll-py": x() }],
+			"scroll-ps": [{ "scroll-ps": x() }],
+			"scroll-pe": [{ "scroll-pe": x() }],
+			"scroll-pbs": [{ "scroll-pbs": x() }],
+			"scroll-pbe": [{ "scroll-pbe": x() }],
+			"scroll-pt": [{ "scroll-pt": x() }],
+			"scroll-pr": [{ "scroll-pr": x() }],
+			"scroll-pb": [{ "scroll-pb": x() }],
+			"scroll-pl": [{ "scroll-pl": x() }],
+			"snap-align": [{ snap: [
+				"start",
+				"end",
+				"center",
+				"align-none"
+			] }],
+			"snap-stop": [{ snap: ["normal", "always"] }],
+			"snap-type": [{ snap: [
+				"none",
+				"x",
+				"y",
+				"both"
+			] }],
+			"snap-strictness": [{ snap: ["mandatory", "proximity"] }],
+			touch: [{ touch: [
+				"auto",
+				"none",
+				"manipulation"
+			] }],
+			"touch-x": [{ "touch-pan": [
+				"x",
+				"left",
+				"right"
+			] }],
+			"touch-y": [{ "touch-pan": [
+				"y",
+				"up",
+				"down"
+			] }],
+			"touch-pz": ["touch-pinch-zoom"],
+			select: [{ select: [
+				"none",
+				"text",
+				"all",
+				"auto"
+			] }],
+			"will-change": [{ "will-change": [
+				"auto",
+				"scroll",
+				"contents",
+				"transform",
+				X,
+				q
+			] }],
+			fill: [{ fill: ["none", ...j()] }],
+			"stroke-w": [{ stroke: [
+				B,
+				Z,
+				J,
+				me
+			] }],
+			stroke: [{ stroke: ["none", ...j()] }],
+			"forced-color-adjust": [{ "forced-color-adjust": ["auto", "none"] }]
+		},
+		conflictingClassGroups: {
+			"container-named": ["container-type"],
+			overflow: ["overflow-x", "overflow-y"],
+			overscroll: ["overscroll-x", "overscroll-y"],
+			inset: [
+				"inset-x",
+				"inset-y",
+				"inset-bs",
+				"inset-be",
+				"start",
+				"end",
+				"top",
+				"right",
+				"bottom",
+				"left"
+			],
+			"inset-x": ["right", "left"],
+			"inset-y": ["top", "bottom"],
+			flex: [
+				"basis",
+				"grow",
+				"shrink"
+			],
+			gap: ["gap-x", "gap-y"],
+			p: [
+				"px",
+				"py",
+				"ps",
+				"pe",
+				"pbs",
+				"pbe",
+				"pt",
+				"pr",
+				"pb",
+				"pl"
+			],
+			px: ["pr", "pl"],
+			py: ["pt", "pb"],
+			m: [
+				"mx",
+				"my",
+				"ms",
+				"me",
+				"mbs",
+				"mbe",
+				"mt",
+				"mr",
+				"mb",
+				"ml"
+			],
+			mx: ["mr", "ml"],
+			my: ["mt", "mb"],
+			size: ["w", "h"],
+			"font-size": ["leading"],
+			"fvn-normal": [
+				"fvn-ordinal",
+				"fvn-slashed-zero",
+				"fvn-figure",
+				"fvn-spacing",
+				"fvn-fraction"
+			],
+			"fvn-ordinal": ["fvn-normal"],
+			"fvn-slashed-zero": ["fvn-normal"],
+			"fvn-figure": ["fvn-normal"],
+			"fvn-spacing": ["fvn-normal"],
+			"fvn-fraction": ["fvn-normal"],
+			"line-clamp": ["display", "overflow"],
+			rounded: [
+				"rounded-s",
+				"rounded-e",
+				"rounded-t",
+				"rounded-r",
+				"rounded-b",
+				"rounded-l",
+				"rounded-ss",
+				"rounded-se",
+				"rounded-ee",
+				"rounded-es",
+				"rounded-tl",
+				"rounded-tr",
+				"rounded-br",
+				"rounded-bl"
+			],
+			"rounded-s": ["rounded-ss", "rounded-es"],
+			"rounded-e": ["rounded-se", "rounded-ee"],
+			"rounded-t": ["rounded-tl", "rounded-tr"],
+			"rounded-r": ["rounded-tr", "rounded-br"],
+			"rounded-b": ["rounded-br", "rounded-bl"],
+			"rounded-l": ["rounded-tl", "rounded-bl"],
+			"border-spacing": ["border-spacing-x", "border-spacing-y"],
+			"border-w": [
+				"border-w-x",
+				"border-w-y",
+				"border-w-s",
+				"border-w-e",
+				"border-w-bs",
+				"border-w-be",
+				"border-w-t",
+				"border-w-r",
+				"border-w-b",
+				"border-w-l"
+			],
+			"border-w-x": ["border-w-r", "border-w-l"],
+			"border-w-y": ["border-w-t", "border-w-b"],
+			"border-color": [
+				"border-color-x",
+				"border-color-y",
+				"border-color-s",
+				"border-color-e",
+				"border-color-bs",
+				"border-color-be",
+				"border-color-t",
+				"border-color-r",
+				"border-color-b",
+				"border-color-l"
+			],
+			"border-color-x": ["border-color-r", "border-color-l"],
+			"border-color-y": ["border-color-t", "border-color-b"],
+			translate: [
+				"translate-x",
+				"translate-y",
+				"translate-none"
+			],
+			"translate-none": [
+				"translate",
+				"translate-x",
+				"translate-y",
+				"translate-z"
+			],
+			"scroll-m": [
+				"scroll-mx",
+				"scroll-my",
+				"scroll-ms",
+				"scroll-me",
+				"scroll-mbs",
+				"scroll-mbe",
+				"scroll-mt",
+				"scroll-mr",
+				"scroll-mb",
+				"scroll-ml"
+			],
+			"scroll-mx": ["scroll-mr", "scroll-ml"],
+			"scroll-my": ["scroll-mt", "scroll-mb"],
+			"scroll-p": [
+				"scroll-px",
+				"scroll-py",
+				"scroll-ps",
+				"scroll-pe",
+				"scroll-pbs",
+				"scroll-pbe",
+				"scroll-pt",
+				"scroll-pr",
+				"scroll-pb",
+				"scroll-pl"
+			],
+			"scroll-px": ["scroll-pr", "scroll-pl"],
+			"scroll-py": ["scroll-pt", "scroll-pb"],
+			touch: [
+				"touch-x",
+				"touch-y",
+				"touch-pz"
+			],
+			"touch-x": ["touch"],
+			"touch-y": ["touch"],
+			"touch-pz": ["touch"]
+		},
+		conflictingClassGroupModifiers: { "font-size": ["leading"] },
+		postfixLookupClassGroups: ["container-type"],
+		orderSensitiveModifiers: [
+			"*",
+			"**",
+			"after",
+			"backdrop",
+			"before",
+			"details-content",
+			"file",
+			"first-letter",
+			"first-line",
+			"marker",
+			"placeholder",
+			"selection"
+		]
+	};
+});
+//#endregion
+//#region src/uis/cn.ts
+function Pe(...e) {
+	return Ne(a(e));
 }
 //#endregion
 //#region src/constants/sex.ts
-var n = [
+var Fe = [
 	{
 		sex_uuid: "019b83ac-ce10-78de-ac51-a80f373773c0",
 		description: "Male"
@@ -22,10 +1773,10 @@ var n = [
 		sex_uuid: "019b83ac-ce11-755d-aad1-db11faae90b4",
 		description: "Prefer not to say"
 	}
-], r = n.map((e) => ({
+], Ie = Fe.map((e) => ({
 	label: e.description,
 	value: e.sex_uuid
-})), i = [
+})), Le = [
 	{
 		sectors_uuid: "019b83a5-16d4-71ba-8e18-127f29de3b24",
 		name: "Information Technology & Software"
@@ -110,10 +1861,10 @@ var n = [
 		sectors_uuid: "019b83a5-16d7-797d-bea1-2afaf9bf2f71",
 		name: "Others"
 	}
-], a = i.map((e) => ({
+], Re = Le.map((e) => ({
 	label: e.name,
 	value: e.sectors_uuid
-})), o = [
+})), ze = [
 	{
 		proficiency_scale_uuid: "019b8396-c5f5-7138-beea-0a4f561c4ad2",
 		level: 1,
@@ -174,10 +1925,10 @@ var n = [
 		meaning: "Master",
 		description: "Recognized authority who sets standards and innovates"
 	}
-], s = o.map((e) => ({
+], Be = ze.map((e) => ({
 	label: `${e.level}/10 - ${e.meaning}`,
 	value: e.proficiency_scale_uuid
-})), c = [
+})), Ve = [
 	{
 		physical_location_uuid: "019b838c-f2fb-780f-83d7-197acc80c77d",
 		name: "Office"
@@ -190,10 +1941,10 @@ var n = [
 		physical_location_uuid: "019b838c-f2fd-7f83-ab90-761594f13578",
 		name: "Hybrid"
 	}
-], l = c.map((e) => ({
+], He = Ve.map((e) => ({
 	label: e.name,
 	value: e.physical_location_uuid
-})), u = [
+})), Ue = [
 	{
 		legal_entity_types_uuid: "019b8385-604d-71a2-b024-b05f6f6e8a5e",
 		name: "Businesses (For-Profit Companies)"
@@ -210,10 +1961,10 @@ var n = [
 		legal_entity_types_uuid: "019b8385-604e-7c9c-8a43-7da70fadc99a",
 		name: "Individuals, Freelancers & Independent Contractors"
 	}
-], d = u.map((e) => ({
+], We = Ue.map((e) => ({
 	label: e.name,
 	value: e.legal_entity_types_uuid
-})), f = [
+})), Ge = [
 	{
 		legal_entity_size_uuid: "019b8382-9534-71ae-81ae-b08c327085eb",
 		name: "Micro",
@@ -234,10 +1985,10 @@ var n = [
 		name: "Large",
 		definition: "250 or more employees"
 	}
-], p = f.map((e) => ({
+], Ke = Ge.map((e) => ({
 	label: `${e.name} - ${e.definition}`,
 	value: e.legal_entity_size_uuid
-})), m = [
+})), qe = [
 	{
 		iso_language_code_uuid: "019b837c-fc26-7c0a-857e-241644fe80f9",
 		language: "Abkhazian",
@@ -1193,10 +2944,10 @@ var n = [
 		language: "Zulu",
 		code: "zu"
 	}
-], h = m.map((e) => ({
+], Je = qe.map((e) => ({
 	label: `${e.language} - ${e.code}`,
 	value: e.iso_language_code_uuid
-})), g = [
+})), Ye = [
 	{
 		iso_currency_code_uuid: "019b8378-2486-74fe-9dd8-389a3893ad51",
 		currency: "Afghani",
@@ -2205,10 +3956,10 @@ var n = [
 		code: "ZWL",
 		number: 932
 	}
-], _ = g.map((e) => ({
+], Xe = Ye.map((e) => ({
 	label: `${e.currency} - ${e.code} - ${e.number}`,
 	value: e.iso_currency_code_uuid
-})), v = [
+})), Ze = [
 	{
 		iso_country_code_uuid: "019b8372-3785-7227-99f8-6cf40c65fd7f",
 		country: "Afghanistan",
@@ -4450,10 +6201,10 @@ var n = [
 		latitude: 60.25072,
 		longitude: 20.37415
 	}
-], y = v.map((e) => ({
+], Qe = Ze.map((e) => ({
 	label: `${e.country} - ${e.alpha2} - ${e.alpha3}`,
 	value: e.iso_country_code_uuid
-})), b = [
+})), $e = [
 	{
 		degrees_uuid: "019b8358-8d62-723f-8ad6-8f3d4650e320",
 		level: "Primary and Secondary Education"
@@ -4474,10 +6225,10 @@ var n = [
 		degrees_uuid: "019b8358-8d62-7f0b-b9bf-5845cdd6634d",
 		level: "Doctoral and Professional Degrees"
 	}
-], x = b.map((e) => ({
+], et = $e.map((e) => ({
 	label: e.level,
 	value: e.degrees_uuid
-})), S = [
+})), tt = [
 	{
 		contract_types_uuid: "019b8353-8adf-72f1-98c8-b081e5384d82",
 		name: "Full-Time",
@@ -4513,10 +6264,10 @@ var n = [
 		name: "Apprenticeship",
 		definition: "Structured training programs that combine work with learning"
 	}
-], C = S.map((e) => ({
+], nt = tt.map((e) => ({
 	label: e.name,
 	value: e.contract_types_uuid
-})), w = [
+})), rt = [
 	{
 		cefr_levels_uuid: "019b834e-eb34-778f-b803-d37e680161ba",
 		level_code: "A1",
@@ -4553,10 +6304,10 @@ var n = [
 		level_name: "Proficiency",
 		description: "Can understand almost everything they hear or read, summarize information from different spoken and written sources, and express themselves with high precision and nuance"
 	}
-], T = w.map((e) => ({
+], it = rt.map((e) => ({
 	label: `${e.level_code} - ${e.level_name}`,
 	value: e.cefr_levels_uuid
-})), E = [
+})), at = [
 	{
 		applications_status_uuid: "019d3f3c-d4ae-7af5-bc71-ffe88e0d4167",
 		status: "REJECTED"
@@ -4581,1793 +6332,32 @@ var n = [
 		applications_status_uuid: "019d51f2-3e56-72f7-b4bd-f68aa366f175",
 		status: "HIRED"
 	}
-], ee = E.map((e) => ({
+], ot = at.map((e) => ({
 	label: e.status,
 	value: e.applications_status_uuid
-})), D = "TAENGMO", te = {
+})), st = class extends Error {
+	status;
+	constructor(e) {
+		super(), this.status = e;
+	}
+}, ct = "refresh_token", lt = "role", ut = "PLACEHOLDER_STRING", dt = 0, ft = new Date(Date.now()), pt = !1, mt = "Loading...", ht = "Error!", gt = "N/A", _t = "Not specified", vt = "Your primary name", yt = "Your position", bt = "Admin", xt = "Personnel", St = "TAENGMO", Ct = {
 	CREATED_AT_ASC: "created_at_asc",
 	CREATED_AT_DESC: "created_at_desc",
 	UPDATED_AT_ASC: "updated_at_asc",
 	UPDATED_AT_DESC: "updated_at_desc",
 	RATING_ASC: "rating_asc",
 	RATING_DESC: "rating_desc"
-}, O = {
+}, wt = {
 	APPLIED: "019d3f3c-d4ad-723b-88ce-05801ecae82d",
 	SHORTLISTED: "019d3f3c-d4ae-79f3-8091-250ad00077a5",
 	REJECTED: "019d3f3c-d4ae-7af5-bc71-ffe88e0d4167",
 	INTERVIEWED: "019d4d77-8001-740c-837e-47cb6b79537c",
 	OFFERED: "019d4d77-8004-777e-a9d3-9011c67e6509",
 	HIRED: "019d51f2-3e56-72f7-b4bd-f68aa366f175"
-}, k = {
+}, Tt = {
 	DENSE: "dense",
 	COMPACT: "compact",
 	EXPANDED: "expanded"
-}, A = {
-	SMALL: "small",
-	MEDIUM: "medium",
-	LARGE: "large"
-};
-function j(e) {
-	switch (e) {
-		case A.SMALL: return "h-8";
-		case A.MEDIUM: return "h-10";
-		case A.LARGE: return "h-14";
-	}
-}
-function ne(e) {
-	switch (e) {
-		case A.SMALL: return "text-[14px]";
-		case A.MEDIUM: return "text-[15px]";
-		case A.LARGE: return "text-[16px]";
-	}
-}
-function re(e) {
-	switch (e) {
-		case A.SMALL: return 16;
-		case A.MEDIUM: return 20;
-		case A.LARGE: return 24;
-	}
-}
-//#endregion
-//#region node_modules/clsx/dist/clsx.mjs
-function M(e) {
-	var t, n, r = "";
-	if (typeof e == "string" || typeof e == "number") r += e;
-	else if (typeof e == "object") if (Array.isArray(e)) {
-		var i = e.length;
-		for (t = 0; t < i; t++) e[t] && (n = M(e[t])) && (r && (r += " "), r += n);
-	} else for (n in e) e[n] && (r && (r += " "), r += n);
-	return r;
-}
-function ie() {
-	for (var e, t, n = 0, r = "", i = arguments.length; n < i; n++) (e = arguments[n]) && (t = M(e)) && (r && (r += " "), r += t);
-	return r;
-}
-//#endregion
-//#region node_modules/tailwind-merge/dist/bundle-mjs.mjs
-var ae = (e, t) => {
-	let n = Array(e.length + t.length);
-	for (let t = 0; t < e.length; t++) n[t] = e[t];
-	for (let r = 0; r < t.length; r++) n[e.length + r] = t[r];
-	return n;
-}, oe = (e, t) => ({
-	classGroupId: e,
-	validator: t
-}), N = (e = /* @__PURE__ */ new Map(), t = null, n) => ({
-	nextPart: e,
-	validators: t,
-	classGroupId: n
-}), P = "-", F = [], I = "arbitrary..", se = (e) => {
-	let t = R(e), { conflictingClassGroups: n, conflictingClassGroupModifiers: r } = e;
-	return {
-		getClassGroupId: (e) => {
-			if (e.startsWith("[") && e.endsWith("]")) return ce(e);
-			let n = e.split(P);
-			return L(n, +(n[0] === "" && n.length > 1), t);
-		},
-		getConflictingClassGroupIds: (e, t) => {
-			if (t) {
-				let t = r[e], i = n[e];
-				return t ? i ? ae(i, t) : t : i || F;
-			}
-			return n[e] || F;
-		}
-	};
-}, L = (e, t, n) => {
-	if (e.length - t === 0) return n.classGroupId;
-	let r = e[t], i = n.nextPart.get(r);
-	if (i) {
-		let n = L(e, t + 1, i);
-		if (n) return n;
-	}
-	let a = n.validators;
-	if (a === null) return;
-	let o = t === 0 ? e.join(P) : e.slice(t).join(P), s = a.length;
-	for (let e = 0; e < s; e++) {
-		let t = a[e];
-		if (t.validator(o)) return t.classGroupId;
-	}
-}, ce = (e) => e.slice(1, -1).indexOf(":") === -1 ? void 0 : (() => {
-	let t = e.slice(1, -1), n = t.indexOf(":"), r = t.slice(0, n);
-	return r ? I + r : void 0;
-})(), R = (e) => {
-	let { theme: t, classGroups: n } = e;
-	return z(n, t);
-}, z = (e, t) => {
-	let n = N();
-	for (let r in e) {
-		let i = e[r];
-		B(i, n, r, t);
-	}
-	return n;
-}, B = (e, t, n, r) => {
-	let i = e.length;
-	for (let a = 0; a < i; a++) {
-		let i = e[a];
-		V(i, t, n, r);
-	}
-}, V = (e, t, n, r) => {
-	if (typeof e == "string") {
-		le(e, t, n);
-		return;
-	}
-	if (typeof e == "function") {
-		ue(e, t, n, r);
-		return;
-	}
-	de(e, t, n, r);
-}, le = (e, t, n) => {
-	let r = e === "" ? t : fe(t, e);
-	r.classGroupId = n;
-}, ue = (e, t, n, r) => {
-	if (pe(e)) {
-		B(e(r), t, n, r);
-		return;
-	}
-	t.validators === null && (t.validators = []), t.validators.push(oe(n, e));
-}, de = (e, t, n, r) => {
-	let i = Object.entries(e), a = i.length;
-	for (let e = 0; e < a; e++) {
-		let [a, o] = i[e];
-		B(o, fe(t, a), n, r);
-	}
-}, fe = (e, t) => {
-	let n = e, r = t.split(P), i = r.length;
-	for (let e = 0; e < i; e++) {
-		let t = r[e], i = n.nextPart.get(t);
-		i || (i = N(), n.nextPart.set(t, i)), n = i;
-	}
-	return n;
-}, pe = (e) => "isThemeGetter" in e && e.isThemeGetter === !0, me = (e) => {
-	if (e < 1) return {
-		get: () => void 0,
-		set: () => {}
-	};
-	let t = 0, n = Object.create(null), r = Object.create(null), i = (i, a) => {
-		n[i] = a, t++, t > e && (t = 0, r = n, n = Object.create(null));
-	};
-	return {
-		get(e) {
-			let t = n[e];
-			if (t !== void 0) return t;
-			if ((t = r[e]) !== void 0) return i(e, t), t;
-		},
-		set(e, t) {
-			e in n ? n[e] = t : i(e, t);
-		}
-	};
-}, he = "!", ge = ":", _e = [], ve = (e, t, n, r, i) => ({
-	modifiers: e,
-	hasImportantModifier: t,
-	baseClassName: n,
-	maybePostfixModifierPosition: r,
-	isExternal: i
-}), ye = (e) => {
-	let { prefix: t, experimentalParseClassName: n } = e, r = (e) => {
-		let t = [], n = 0, r = 0, i = 0, a, o = e.length;
-		for (let s = 0; s < o; s++) {
-			let o = e[s];
-			if (n === 0 && r === 0) {
-				if (o === ge) {
-					t.push(e.slice(i, s)), i = s + 1;
-					continue;
-				}
-				if (o === "/") {
-					a = s;
-					continue;
-				}
-			}
-			o === "[" ? n++ : o === "]" ? n-- : o === "(" ? r++ : o === ")" && r--;
-		}
-		let s = t.length === 0 ? e : e.slice(i), c = s, l = !1;
-		s.endsWith(he) ? (c = s.slice(0, -1), l = !0) : s.startsWith(he) && (c = s.slice(1), l = !0);
-		let u = a && a > i ? a - i : void 0;
-		return ve(t, l, c, u);
-	};
-	if (t) {
-		let e = t + ge, n = r;
-		r = (t) => t.startsWith(e) ? n(t.slice(e.length)) : ve(_e, !1, t, void 0, !0);
-	}
-	if (n) {
-		let e = r;
-		r = (t) => n({
-			className: t,
-			parseClassName: e
-		});
-	}
-	return r;
-}, be = (e) => {
-	let t = /* @__PURE__ */ new Map();
-	return e.orderSensitiveModifiers.forEach((e, n) => {
-		t.set(e, 1e6 + n);
-	}), (e) => {
-		let n = [], r = [];
-		for (let i = 0; i < e.length; i++) {
-			let a = e[i], o = a[0] === "[", s = t.has(a);
-			o || s ? (r.length > 0 && (r.sort(), n.push(...r), r = []), n.push(a)) : r.push(a);
-		}
-		return r.length > 0 && (r.sort(), n.push(...r)), n;
-	};
-}, xe = (e) => ({
-	cache: me(e.cacheSize),
-	parseClassName: ye(e),
-	sortModifiers: be(e),
-	postfixLookupClassGroupIds: Se(e),
-	...se(e)
-}), Se = (e) => {
-	let t = Object.create(null), n = e.postfixLookupClassGroups;
-	if (n) for (let e = 0; e < n.length; e++) t[n[e]] = !0;
-	return t;
-}, Ce = /\s+/, we = (e, t) => {
-	let { parseClassName: n, getClassGroupId: r, getConflictingClassGroupIds: i, sortModifiers: a, postfixLookupClassGroupIds: o } = t, s = [], c = e.trim().split(Ce), l = "";
-	for (let e = c.length - 1; e >= 0; --e) {
-		let t = c[e], { isExternal: u, modifiers: d, hasImportantModifier: f, baseClassName: p, maybePostfixModifierPosition: m } = n(t);
-		if (u) {
-			l = t + (l.length > 0 ? " " + l : l);
-			continue;
-		}
-		let h = !!m, g;
-		if (h) {
-			g = r(p.substring(0, m));
-			let e = g && o[g] ? r(p) : void 0;
-			e && e !== g && (g = e, h = !1);
-		} else g = r(p);
-		if (!g) {
-			if (!h) {
-				l = t + (l.length > 0 ? " " + l : l);
-				continue;
-			}
-			if (g = r(p), !g) {
-				l = t + (l.length > 0 ? " " + l : l);
-				continue;
-			}
-			h = !1;
-		}
-		let _ = d.length === 0 ? "" : d.length === 1 ? d[0] : a(d).join(":"), v = f ? _ + he : _, y = v + g;
-		if (s.indexOf(y) > -1) continue;
-		s.push(y);
-		let b = i(g, h);
-		for (let e = 0; e < b.length; ++e) {
-			let t = b[e];
-			s.push(v + t);
-		}
-		l = t + (l.length > 0 ? " " + l : l);
-	}
-	return l;
-}, Te = (...e) => {
-	let t = 0, n, r, i = "";
-	for (; t < e.length;) (n = e[t++]) && (r = Ee(n)) && (i && (i += " "), i += r);
-	return i;
-}, Ee = (e) => {
-	if (typeof e == "string") return e;
-	let t, n = "";
-	for (let r = 0; r < e.length; r++) e[r] && (t = Ee(e[r])) && (n && (n += " "), n += t);
-	return n;
-}, De = (e, ...t) => {
-	let n, r, i, a, o = (o) => (n = xe(t.reduce((e, t) => t(e), e())), r = n.cache.get, i = n.cache.set, a = s, s(o)), s = (e) => {
-		let t = r(e);
-		if (t) return t;
-		let a = we(e, n);
-		return i(e, a), a;
-	};
-	return a = o, (...e) => a(Te(...e));
-}, Oe = [], H = (e) => {
-	let t = (t) => t[e] || Oe;
-	return t.isThemeGetter = !0, t;
-}, ke = /^\[(?:(\w[\w-]*):)?(.+)\]$/i, Ae = /^\((?:(\w[\w-]*):)?(.+)\)$/i, je = /^\d+(?:\.\d+)?\/\d+(?:\.\d+)?$/, Me = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/, Ne = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/, Pe = /^(rgba?|hsla?|hwb|(ok)?(lab|lch)|color-mix)\(.+\)$/, Fe = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/, Ie = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/, U = (e) => je.test(e), W = (e) => !!e && !Number.isNaN(Number(e)), G = (e) => !!e && Number.isInteger(Number(e)), Le = (e) => e.endsWith("%") && W(e.slice(0, -1)), K = (e) => Me.test(e), Re = () => !0, ze = (e) => Ne.test(e) && !Pe.test(e), Be = () => !1, Ve = (e) => Fe.test(e), He = (e) => Ie.test(e), Ue = (e) => !q(e) && !X(e), We = (e) => e.startsWith("@container") && (e[10] === "/" && e[11] !== void 0 || e[11] === "s" && e[16] !== void 0 && e.startsWith("-size/", 10) || e[11] === "n" && e[18] !== void 0 && e.startsWith("-normal/", 10)), Ge = (e) => Q(e, at, Be), q = (e) => ke.test(e), J = (e) => Q(e, ot, ze), Ke = (e) => Q(e, st, W), qe = (e) => Q(e, lt, Re), Je = (e) => Q(e, ct, Be), Ye = (e) => Q(e, rt, Be), Xe = (e) => Q(e, it, He), Y = (e) => Q(e, ut, Ve), X = (e) => Ae.test(e), Z = (e) => $(e, ot), Ze = (e) => $(e, ct), Qe = (e) => $(e, rt), $e = (e) => $(e, at), et = (e) => $(e, it), tt = (e) => $(e, ut, !0), nt = (e) => $(e, lt, !0), Q = (e, t, n) => {
-	let r = ke.exec(e);
-	return r ? r[1] ? t(r[1]) : n(r[2]) : !1;
-}, $ = (e, t, n = !1) => {
-	let r = Ae.exec(e);
-	return r ? r[1] ? t(r[1]) : n : !1;
-}, rt = (e) => e === "position" || e === "percentage", it = (e) => e === "image" || e === "url", at = (e) => e === "length" || e === "size" || e === "bg-size", ot = (e) => e === "length", st = (e) => e === "number", ct = (e) => e === "family-name", lt = (e) => e === "number" || e === "weight", ut = (e) => e === "shadow", dt = /* @__PURE__ */ De(() => {
-	let e = H("color"), t = H("font"), n = H("text"), r = H("font-weight"), i = H("tracking"), a = H("leading"), o = H("breakpoint"), s = H("container"), c = H("spacing"), l = H("radius"), u = H("shadow"), d = H("inset-shadow"), f = H("text-shadow"), p = H("drop-shadow"), m = H("blur"), h = H("perspective"), g = H("aspect"), _ = H("ease"), v = H("animate"), y = () => [
-		"auto",
-		"avoid",
-		"all",
-		"avoid-page",
-		"page",
-		"left",
-		"right",
-		"column"
-	], b = () => [
-		"center",
-		"top",
-		"bottom",
-		"left",
-		"right",
-		"top-left",
-		"left-top",
-		"top-right",
-		"right-top",
-		"bottom-right",
-		"right-bottom",
-		"bottom-left",
-		"left-bottom"
-	], x = () => [
-		...b(),
-		X,
-		q
-	], S = () => [
-		"auto",
-		"hidden",
-		"clip",
-		"visible",
-		"scroll"
-	], C = () => [
-		"auto",
-		"contain",
-		"none"
-	], w = () => [
-		X,
-		q,
-		c
-	], T = () => [
-		U,
-		"full",
-		"auto",
-		...w()
-	], E = () => [
-		G,
-		"none",
-		"subgrid",
-		X,
-		q
-	], ee = () => [
-		"auto",
-		{ span: [
-			"full",
-			G,
-			X,
-			q
-		] },
-		G,
-		X,
-		q
-	], D = () => [
-		G,
-		"auto",
-		X,
-		q
-	], te = () => [
-		"auto",
-		"min",
-		"max",
-		"fr",
-		X,
-		q
-	], O = () => [
-		"start",
-		"end",
-		"center",
-		"between",
-		"around",
-		"evenly",
-		"stretch",
-		"baseline",
-		"center-safe",
-		"end-safe"
-	], k = () => [
-		"start",
-		"end",
-		"center",
-		"stretch",
-		"center-safe",
-		"end-safe"
-	], A = () => ["auto", ...w()], j = () => [
-		U,
-		"auto",
-		"full",
-		"dvw",
-		"dvh",
-		"lvw",
-		"lvh",
-		"svw",
-		"svh",
-		"min",
-		"max",
-		"fit",
-		...w()
-	], ne = () => [
-		U,
-		"screen",
-		"full",
-		"dvw",
-		"lvw",
-		"svw",
-		"min",
-		"max",
-		"fit",
-		...w()
-	], re = () => [
-		U,
-		"screen",
-		"full",
-		"lh",
-		"dvh",
-		"lvh",
-		"svh",
-		"min",
-		"max",
-		"fit",
-		...w()
-	], M = () => [
-		e,
-		X,
-		q
-	], ie = () => [
-		...b(),
-		Qe,
-		Ye,
-		{ position: [X, q] }
-	], ae = () => ["no-repeat", { repeat: [
-		"",
-		"x",
-		"y",
-		"space",
-		"round"
-	] }], oe = () => [
-		"auto",
-		"cover",
-		"contain",
-		$e,
-		Ge,
-		{ size: [X, q] }
-	], N = () => [
-		Le,
-		Z,
-		J
-	], P = () => [
-		"",
-		"none",
-		"full",
-		l,
-		X,
-		q
-	], F = () => [
-		"",
-		W,
-		Z,
-		J
-	], I = () => [
-		"solid",
-		"dashed",
-		"dotted",
-		"double"
-	], se = () => [
-		"normal",
-		"multiply",
-		"screen",
-		"overlay",
-		"darken",
-		"lighten",
-		"color-dodge",
-		"color-burn",
-		"hard-light",
-		"soft-light",
-		"difference",
-		"exclusion",
-		"hue",
-		"saturation",
-		"color",
-		"luminosity"
-	], L = () => [
-		W,
-		Le,
-		Qe,
-		Ye
-	], ce = () => [
-		"",
-		"none",
-		m,
-		X,
-		q
-	], R = () => [
-		"none",
-		W,
-		X,
-		q
-	], z = () => [
-		"none",
-		W,
-		X,
-		q
-	], B = () => [
-		W,
-		X,
-		q
-	], V = () => [
-		U,
-		"full",
-		...w()
-	];
-	return {
-		cacheSize: 500,
-		theme: {
-			animate: [
-				"spin",
-				"ping",
-				"pulse",
-				"bounce"
-			],
-			aspect: ["video"],
-			blur: [K],
-			breakpoint: [K],
-			color: [Re],
-			container: [K],
-			"drop-shadow": [K],
-			ease: [
-				"in",
-				"out",
-				"in-out"
-			],
-			font: [Ue],
-			"font-weight": [
-				"thin",
-				"extralight",
-				"light",
-				"normal",
-				"medium",
-				"semibold",
-				"bold",
-				"extrabold",
-				"black"
-			],
-			"inset-shadow": [K],
-			leading: [
-				"none",
-				"tight",
-				"snug",
-				"normal",
-				"relaxed",
-				"loose"
-			],
-			perspective: [
-				"dramatic",
-				"near",
-				"normal",
-				"midrange",
-				"distant",
-				"none"
-			],
-			radius: [K],
-			shadow: [K],
-			spacing: ["px", W],
-			text: [K],
-			"text-shadow": [K],
-			tracking: [
-				"tighter",
-				"tight",
-				"normal",
-				"wide",
-				"wider",
-				"widest"
-			]
-		},
-		classGroups: {
-			aspect: [{ aspect: [
-				"auto",
-				"square",
-				U,
-				q,
-				X,
-				g
-			] }],
-			container: ["container"],
-			"container-type": [{ "@container": [
-				"",
-				"normal",
-				"size",
-				X,
-				q
-			] }],
-			"container-named": [We],
-			columns: [{ columns: [
-				W,
-				q,
-				X,
-				s
-			] }],
-			"break-after": [{ "break-after": y() }],
-			"break-before": [{ "break-before": y() }],
-			"break-inside": [{ "break-inside": [
-				"auto",
-				"avoid",
-				"avoid-page",
-				"avoid-column"
-			] }],
-			"box-decoration": [{ "box-decoration": ["slice", "clone"] }],
-			box: [{ box: ["border", "content"] }],
-			display: [
-				"block",
-				"inline-block",
-				"inline",
-				"flex",
-				"inline-flex",
-				"table",
-				"inline-table",
-				"table-caption",
-				"table-cell",
-				"table-column",
-				"table-column-group",
-				"table-footer-group",
-				"table-header-group",
-				"table-row-group",
-				"table-row",
-				"flow-root",
-				"grid",
-				"inline-grid",
-				"contents",
-				"list-item",
-				"hidden"
-			],
-			sr: ["sr-only", "not-sr-only"],
-			float: [{ float: [
-				"right",
-				"left",
-				"none",
-				"start",
-				"end"
-			] }],
-			clear: [{ clear: [
-				"left",
-				"right",
-				"both",
-				"none",
-				"start",
-				"end"
-			] }],
-			isolation: ["isolate", "isolation-auto"],
-			"object-fit": [{ object: [
-				"contain",
-				"cover",
-				"fill",
-				"none",
-				"scale-down"
-			] }],
-			"object-position": [{ object: x() }],
-			overflow: [{ overflow: S() }],
-			"overflow-x": [{ "overflow-x": S() }],
-			"overflow-y": [{ "overflow-y": S() }],
-			overscroll: [{ overscroll: C() }],
-			"overscroll-x": [{ "overscroll-x": C() }],
-			"overscroll-y": [{ "overscroll-y": C() }],
-			position: [
-				"static",
-				"fixed",
-				"absolute",
-				"relative",
-				"sticky"
-			],
-			inset: [{ inset: T() }],
-			"inset-x": [{ "inset-x": T() }],
-			"inset-y": [{ "inset-y": T() }],
-			start: [{
-				"inset-s": T(),
-				start: T()
-			}],
-			end: [{
-				"inset-e": T(),
-				end: T()
-			}],
-			"inset-bs": [{ "inset-bs": T() }],
-			"inset-be": [{ "inset-be": T() }],
-			top: [{ top: T() }],
-			right: [{ right: T() }],
-			bottom: [{ bottom: T() }],
-			left: [{ left: T() }],
-			visibility: [
-				"visible",
-				"invisible",
-				"collapse"
-			],
-			z: [{ z: [
-				G,
-				"auto",
-				X,
-				q
-			] }],
-			basis: [{ basis: [
-				U,
-				"full",
-				"auto",
-				s,
-				...w()
-			] }],
-			"flex-direction": [{ flex: [
-				"row",
-				"row-reverse",
-				"col",
-				"col-reverse"
-			] }],
-			"flex-wrap": [{ flex: [
-				"nowrap",
-				"wrap",
-				"wrap-reverse"
-			] }],
-			flex: [{ flex: [
-				W,
-				U,
-				"auto",
-				"initial",
-				"none",
-				q
-			] }],
-			grow: [{ grow: [
-				"",
-				W,
-				X,
-				q
-			] }],
-			shrink: [{ shrink: [
-				"",
-				W,
-				X,
-				q
-			] }],
-			order: [{ order: [
-				G,
-				"first",
-				"last",
-				"none",
-				X,
-				q
-			] }],
-			"grid-cols": [{ "grid-cols": E() }],
-			"col-start-end": [{ col: ee() }],
-			"col-start": [{ "col-start": D() }],
-			"col-end": [{ "col-end": D() }],
-			"grid-rows": [{ "grid-rows": E() }],
-			"row-start-end": [{ row: ee() }],
-			"row-start": [{ "row-start": D() }],
-			"row-end": [{ "row-end": D() }],
-			"grid-flow": [{ "grid-flow": [
-				"row",
-				"col",
-				"dense",
-				"row-dense",
-				"col-dense"
-			] }],
-			"auto-cols": [{ "auto-cols": te() }],
-			"auto-rows": [{ "auto-rows": te() }],
-			gap: [{ gap: w() }],
-			"gap-x": [{ "gap-x": w() }],
-			"gap-y": [{ "gap-y": w() }],
-			"justify-content": [{ justify: [...O(), "normal"] }],
-			"justify-items": [{ "justify-items": [...k(), "normal"] }],
-			"justify-self": [{ "justify-self": ["auto", ...k()] }],
-			"align-content": [{ content: ["normal", ...O()] }],
-			"align-items": [{ items: [...k(), { baseline: ["", "last"] }] }],
-			"align-self": [{ self: [
-				"auto",
-				...k(),
-				{ baseline: ["", "last"] }
-			] }],
-			"place-content": [{ "place-content": O() }],
-			"place-items": [{ "place-items": [...k(), "baseline"] }],
-			"place-self": [{ "place-self": ["auto", ...k()] }],
-			p: [{ p: w() }],
-			px: [{ px: w() }],
-			py: [{ py: w() }],
-			ps: [{ ps: w() }],
-			pe: [{ pe: w() }],
-			pbs: [{ pbs: w() }],
-			pbe: [{ pbe: w() }],
-			pt: [{ pt: w() }],
-			pr: [{ pr: w() }],
-			pb: [{ pb: w() }],
-			pl: [{ pl: w() }],
-			m: [{ m: A() }],
-			mx: [{ mx: A() }],
-			my: [{ my: A() }],
-			ms: [{ ms: A() }],
-			me: [{ me: A() }],
-			mbs: [{ mbs: A() }],
-			mbe: [{ mbe: A() }],
-			mt: [{ mt: A() }],
-			mr: [{ mr: A() }],
-			mb: [{ mb: A() }],
-			ml: [{ ml: A() }],
-			"space-x": [{ "space-x": w() }],
-			"space-x-reverse": ["space-x-reverse"],
-			"space-y": [{ "space-y": w() }],
-			"space-y-reverse": ["space-y-reverse"],
-			size: [{ size: j() }],
-			"inline-size": [{ inline: ["auto", ...ne()] }],
-			"min-inline-size": [{ "min-inline": ["auto", ...ne()] }],
-			"max-inline-size": [{ "max-inline": ["none", ...ne()] }],
-			"block-size": [{ block: ["auto", ...re()] }],
-			"min-block-size": [{ "min-block": ["auto", ...re()] }],
-			"max-block-size": [{ "max-block": ["none", ...re()] }],
-			w: [{ w: [
-				s,
-				"screen",
-				...j()
-			] }],
-			"min-w": [{ "min-w": [
-				s,
-				"screen",
-				"none",
-				...j()
-			] }],
-			"max-w": [{ "max-w": [
-				s,
-				"screen",
-				"none",
-				"prose",
-				{ screen: [o] },
-				...j()
-			] }],
-			h: [{ h: [
-				"screen",
-				"lh",
-				...j()
-			] }],
-			"min-h": [{ "min-h": [
-				"screen",
-				"lh",
-				"none",
-				...j()
-			] }],
-			"max-h": [{ "max-h": [
-				"screen",
-				"lh",
-				...j()
-			] }],
-			"font-size": [{ text: [
-				"base",
-				n,
-				Z,
-				J
-			] }],
-			"font-smoothing": ["antialiased", "subpixel-antialiased"],
-			"font-style": ["italic", "not-italic"],
-			"font-weight": [{ font: [
-				r,
-				nt,
-				qe
-			] }],
-			"font-stretch": [{ "font-stretch": [
-				"ultra-condensed",
-				"extra-condensed",
-				"condensed",
-				"semi-condensed",
-				"normal",
-				"semi-expanded",
-				"expanded",
-				"extra-expanded",
-				"ultra-expanded",
-				Le,
-				q
-			] }],
-			"font-family": [{ font: [
-				Ze,
-				Je,
-				t
-			] }],
-			"font-features": [{ "font-features": [q] }],
-			"fvn-normal": ["normal-nums"],
-			"fvn-ordinal": ["ordinal"],
-			"fvn-slashed-zero": ["slashed-zero"],
-			"fvn-figure": ["lining-nums", "oldstyle-nums"],
-			"fvn-spacing": ["proportional-nums", "tabular-nums"],
-			"fvn-fraction": ["diagonal-fractions", "stacked-fractions"],
-			tracking: [{ tracking: [
-				i,
-				X,
-				q
-			] }],
-			"line-clamp": [{ "line-clamp": [
-				W,
-				"none",
-				X,
-				Ke
-			] }],
-			leading: [{ leading: [a, ...w()] }],
-			"list-image": [{ "list-image": [
-				"none",
-				X,
-				q
-			] }],
-			"list-style-position": [{ list: ["inside", "outside"] }],
-			"list-style-type": [{ list: [
-				"disc",
-				"decimal",
-				"none",
-				X,
-				q
-			] }],
-			"text-alignment": [{ text: [
-				"left",
-				"center",
-				"right",
-				"justify",
-				"start",
-				"end"
-			] }],
-			"placeholder-color": [{ placeholder: M() }],
-			"text-color": [{ text: M() }],
-			"text-decoration": [
-				"underline",
-				"overline",
-				"line-through",
-				"no-underline"
-			],
-			"text-decoration-style": [{ decoration: [...I(), "wavy"] }],
-			"text-decoration-thickness": [{ decoration: [
-				W,
-				"from-font",
-				"auto",
-				X,
-				J
-			] }],
-			"text-decoration-color": [{ decoration: M() }],
-			"underline-offset": [{ "underline-offset": [
-				W,
-				"auto",
-				X,
-				q
-			] }],
-			"text-transform": [
-				"uppercase",
-				"lowercase",
-				"capitalize",
-				"normal-case"
-			],
-			"text-overflow": [
-				"truncate",
-				"text-ellipsis",
-				"text-clip"
-			],
-			"text-wrap": [{ text: [
-				"wrap",
-				"nowrap",
-				"balance",
-				"pretty"
-			] }],
-			indent: [{ indent: w() }],
-			"tab-size": [{ tab: [
-				G,
-				X,
-				q
-			] }],
-			"vertical-align": [{ align: [
-				"baseline",
-				"top",
-				"middle",
-				"bottom",
-				"text-top",
-				"text-bottom",
-				"sub",
-				"super",
-				X,
-				q
-			] }],
-			whitespace: [{ whitespace: [
-				"normal",
-				"nowrap",
-				"pre",
-				"pre-line",
-				"pre-wrap",
-				"break-spaces"
-			] }],
-			break: [{ break: [
-				"normal",
-				"words",
-				"all",
-				"keep"
-			] }],
-			wrap: [{ wrap: [
-				"break-word",
-				"anywhere",
-				"normal"
-			] }],
-			hyphens: [{ hyphens: [
-				"none",
-				"manual",
-				"auto"
-			] }],
-			content: [{ content: [
-				"none",
-				X,
-				q
-			] }],
-			"bg-attachment": [{ bg: [
-				"fixed",
-				"local",
-				"scroll"
-			] }],
-			"bg-clip": [{ "bg-clip": [
-				"border",
-				"padding",
-				"content",
-				"text"
-			] }],
-			"bg-origin": [{ "bg-origin": [
-				"border",
-				"padding",
-				"content"
-			] }],
-			"bg-position": [{ bg: ie() }],
-			"bg-repeat": [{ bg: ae() }],
-			"bg-size": [{ bg: oe() }],
-			"bg-image": [{ bg: [
-				"none",
-				{
-					linear: [
-						{ to: [
-							"t",
-							"tr",
-							"r",
-							"br",
-							"b",
-							"bl",
-							"l",
-							"tl"
-						] },
-						G,
-						X,
-						q
-					],
-					radial: [
-						"",
-						X,
-						q
-					],
-					conic: [
-						G,
-						X,
-						q
-					]
-				},
-				et,
-				Xe
-			] }],
-			"bg-color": [{ bg: M() }],
-			"gradient-from-pos": [{ from: N() }],
-			"gradient-via-pos": [{ via: N() }],
-			"gradient-to-pos": [{ to: N() }],
-			"gradient-from": [{ from: M() }],
-			"gradient-via": [{ via: M() }],
-			"gradient-to": [{ to: M() }],
-			rounded: [{ rounded: P() }],
-			"rounded-s": [{ "rounded-s": P() }],
-			"rounded-e": [{ "rounded-e": P() }],
-			"rounded-t": [{ "rounded-t": P() }],
-			"rounded-r": [{ "rounded-r": P() }],
-			"rounded-b": [{ "rounded-b": P() }],
-			"rounded-l": [{ "rounded-l": P() }],
-			"rounded-ss": [{ "rounded-ss": P() }],
-			"rounded-se": [{ "rounded-se": P() }],
-			"rounded-ee": [{ "rounded-ee": P() }],
-			"rounded-es": [{ "rounded-es": P() }],
-			"rounded-tl": [{ "rounded-tl": P() }],
-			"rounded-tr": [{ "rounded-tr": P() }],
-			"rounded-br": [{ "rounded-br": P() }],
-			"rounded-bl": [{ "rounded-bl": P() }],
-			"border-w": [{ border: F() }],
-			"border-w-x": [{ "border-x": F() }],
-			"border-w-y": [{ "border-y": F() }],
-			"border-w-s": [{ "border-s": F() }],
-			"border-w-e": [{ "border-e": F() }],
-			"border-w-bs": [{ "border-bs": F() }],
-			"border-w-be": [{ "border-be": F() }],
-			"border-w-t": [{ "border-t": F() }],
-			"border-w-r": [{ "border-r": F() }],
-			"border-w-b": [{ "border-b": F() }],
-			"border-w-l": [{ "border-l": F() }],
-			"divide-x": [{ "divide-x": F() }],
-			"divide-x-reverse": ["divide-x-reverse"],
-			"divide-y": [{ "divide-y": F() }],
-			"divide-y-reverse": ["divide-y-reverse"],
-			"border-style": [{ border: [
-				...I(),
-				"hidden",
-				"none"
-			] }],
-			"divide-style": [{ divide: [
-				...I(),
-				"hidden",
-				"none"
-			] }],
-			"border-color": [{ border: M() }],
-			"border-color-x": [{ "border-x": M() }],
-			"border-color-y": [{ "border-y": M() }],
-			"border-color-s": [{ "border-s": M() }],
-			"border-color-e": [{ "border-e": M() }],
-			"border-color-bs": [{ "border-bs": M() }],
-			"border-color-be": [{ "border-be": M() }],
-			"border-color-t": [{ "border-t": M() }],
-			"border-color-r": [{ "border-r": M() }],
-			"border-color-b": [{ "border-b": M() }],
-			"border-color-l": [{ "border-l": M() }],
-			"divide-color": [{ divide: M() }],
-			"outline-style": [{ outline: [
-				...I(),
-				"none",
-				"hidden"
-			] }],
-			"outline-offset": [{ "outline-offset": [
-				W,
-				X,
-				q
-			] }],
-			"outline-w": [{ outline: [
-				"",
-				W,
-				Z,
-				J
-			] }],
-			"outline-color": [{ outline: M() }],
-			shadow: [{ shadow: [
-				"",
-				"none",
-				u,
-				tt,
-				Y
-			] }],
-			"shadow-color": [{ shadow: M() }],
-			"inset-shadow": [{ "inset-shadow": [
-				"none",
-				d,
-				tt,
-				Y
-			] }],
-			"inset-shadow-color": [{ "inset-shadow": M() }],
-			"ring-w": [{ ring: F() }],
-			"ring-w-inset": ["ring-inset"],
-			"ring-color": [{ ring: M() }],
-			"ring-offset-w": [{ "ring-offset": [W, J] }],
-			"ring-offset-color": [{ "ring-offset": M() }],
-			"inset-ring-w": [{ "inset-ring": F() }],
-			"inset-ring-color": [{ "inset-ring": M() }],
-			"text-shadow": [{ "text-shadow": [
-				"none",
-				f,
-				tt,
-				Y
-			] }],
-			"text-shadow-color": [{ "text-shadow": M() }],
-			opacity: [{ opacity: [
-				W,
-				X,
-				q
-			] }],
-			"mix-blend": [{ "mix-blend": [
-				...se(),
-				"plus-darker",
-				"plus-lighter"
-			] }],
-			"bg-blend": [{ "bg-blend": se() }],
-			"mask-clip": [{ "mask-clip": [
-				"border",
-				"padding",
-				"content",
-				"fill",
-				"stroke",
-				"view"
-			] }, "mask-no-clip"],
-			"mask-composite": [{ mask: [
-				"add",
-				"subtract",
-				"intersect",
-				"exclude"
-			] }],
-			"mask-image-linear-pos": [{ "mask-linear": [W] }],
-			"mask-image-linear-from-pos": [{ "mask-linear-from": L() }],
-			"mask-image-linear-to-pos": [{ "mask-linear-to": L() }],
-			"mask-image-linear-from-color": [{ "mask-linear-from": M() }],
-			"mask-image-linear-to-color": [{ "mask-linear-to": M() }],
-			"mask-image-t-from-pos": [{ "mask-t-from": L() }],
-			"mask-image-t-to-pos": [{ "mask-t-to": L() }],
-			"mask-image-t-from-color": [{ "mask-t-from": M() }],
-			"mask-image-t-to-color": [{ "mask-t-to": M() }],
-			"mask-image-r-from-pos": [{ "mask-r-from": L() }],
-			"mask-image-r-to-pos": [{ "mask-r-to": L() }],
-			"mask-image-r-from-color": [{ "mask-r-from": M() }],
-			"mask-image-r-to-color": [{ "mask-r-to": M() }],
-			"mask-image-b-from-pos": [{ "mask-b-from": L() }],
-			"mask-image-b-to-pos": [{ "mask-b-to": L() }],
-			"mask-image-b-from-color": [{ "mask-b-from": M() }],
-			"mask-image-b-to-color": [{ "mask-b-to": M() }],
-			"mask-image-l-from-pos": [{ "mask-l-from": L() }],
-			"mask-image-l-to-pos": [{ "mask-l-to": L() }],
-			"mask-image-l-from-color": [{ "mask-l-from": M() }],
-			"mask-image-l-to-color": [{ "mask-l-to": M() }],
-			"mask-image-x-from-pos": [{ "mask-x-from": L() }],
-			"mask-image-x-to-pos": [{ "mask-x-to": L() }],
-			"mask-image-x-from-color": [{ "mask-x-from": M() }],
-			"mask-image-x-to-color": [{ "mask-x-to": M() }],
-			"mask-image-y-from-pos": [{ "mask-y-from": L() }],
-			"mask-image-y-to-pos": [{ "mask-y-to": L() }],
-			"mask-image-y-from-color": [{ "mask-y-from": M() }],
-			"mask-image-y-to-color": [{ "mask-y-to": M() }],
-			"mask-image-radial": [{ "mask-radial": [X, q] }],
-			"mask-image-radial-from-pos": [{ "mask-radial-from": L() }],
-			"mask-image-radial-to-pos": [{ "mask-radial-to": L() }],
-			"mask-image-radial-from-color": [{ "mask-radial-from": M() }],
-			"mask-image-radial-to-color": [{ "mask-radial-to": M() }],
-			"mask-image-radial-shape": [{ "mask-radial": ["circle", "ellipse"] }],
-			"mask-image-radial-size": [{ "mask-radial": [{
-				closest: ["side", "corner"],
-				farthest: ["side", "corner"]
-			}] }],
-			"mask-image-radial-pos": [{ "mask-radial-at": b() }],
-			"mask-image-conic-pos": [{ "mask-conic": [W] }],
-			"mask-image-conic-from-pos": [{ "mask-conic-from": L() }],
-			"mask-image-conic-to-pos": [{ "mask-conic-to": L() }],
-			"mask-image-conic-from-color": [{ "mask-conic-from": M() }],
-			"mask-image-conic-to-color": [{ "mask-conic-to": M() }],
-			"mask-mode": [{ mask: [
-				"alpha",
-				"luminance",
-				"match"
-			] }],
-			"mask-origin": [{ "mask-origin": [
-				"border",
-				"padding",
-				"content",
-				"fill",
-				"stroke",
-				"view"
-			] }],
-			"mask-position": [{ mask: ie() }],
-			"mask-repeat": [{ mask: ae() }],
-			"mask-size": [{ mask: oe() }],
-			"mask-type": [{ "mask-type": ["alpha", "luminance"] }],
-			"mask-image": [{ mask: [
-				"none",
-				X,
-				q
-			] }],
-			filter: [{ filter: [
-				"",
-				"none",
-				X,
-				q
-			] }],
-			blur: [{ blur: ce() }],
-			brightness: [{ brightness: [
-				W,
-				X,
-				q
-			] }],
-			contrast: [{ contrast: [
-				W,
-				X,
-				q
-			] }],
-			"drop-shadow": [{ "drop-shadow": [
-				"",
-				"none",
-				p,
-				tt,
-				Y
-			] }],
-			"drop-shadow-color": [{ "drop-shadow": M() }],
-			grayscale: [{ grayscale: [
-				"",
-				W,
-				X,
-				q
-			] }],
-			"hue-rotate": [{ "hue-rotate": [
-				W,
-				X,
-				q
-			] }],
-			invert: [{ invert: [
-				"",
-				W,
-				X,
-				q
-			] }],
-			saturate: [{ saturate: [
-				W,
-				X,
-				q
-			] }],
-			sepia: [{ sepia: [
-				"",
-				W,
-				X,
-				q
-			] }],
-			"backdrop-filter": [{ "backdrop-filter": [
-				"",
-				"none",
-				X,
-				q
-			] }],
-			"backdrop-blur": [{ "backdrop-blur": ce() }],
-			"backdrop-brightness": [{ "backdrop-brightness": [
-				W,
-				X,
-				q
-			] }],
-			"backdrop-contrast": [{ "backdrop-contrast": [
-				W,
-				X,
-				q
-			] }],
-			"backdrop-grayscale": [{ "backdrop-grayscale": [
-				"",
-				W,
-				X,
-				q
-			] }],
-			"backdrop-hue-rotate": [{ "backdrop-hue-rotate": [
-				W,
-				X,
-				q
-			] }],
-			"backdrop-invert": [{ "backdrop-invert": [
-				"",
-				W,
-				X,
-				q
-			] }],
-			"backdrop-opacity": [{ "backdrop-opacity": [
-				W,
-				X,
-				q
-			] }],
-			"backdrop-saturate": [{ "backdrop-saturate": [
-				W,
-				X,
-				q
-			] }],
-			"backdrop-sepia": [{ "backdrop-sepia": [
-				"",
-				W,
-				X,
-				q
-			] }],
-			"border-collapse": [{ border: ["collapse", "separate"] }],
-			"border-spacing": [{ "border-spacing": w() }],
-			"border-spacing-x": [{ "border-spacing-x": w() }],
-			"border-spacing-y": [{ "border-spacing-y": w() }],
-			"table-layout": [{ table: ["auto", "fixed"] }],
-			caption: [{ caption: ["top", "bottom"] }],
-			transition: [{ transition: [
-				"",
-				"all",
-				"colors",
-				"opacity",
-				"shadow",
-				"transform",
-				"none",
-				X,
-				q
-			] }],
-			"transition-behavior": [{ transition: ["normal", "discrete"] }],
-			duration: [{ duration: [
-				W,
-				"initial",
-				X,
-				q
-			] }],
-			ease: [{ ease: [
-				"linear",
-				"initial",
-				_,
-				X,
-				q
-			] }],
-			delay: [{ delay: [
-				W,
-				X,
-				q
-			] }],
-			animate: [{ animate: [
-				"none",
-				v,
-				X,
-				q
-			] }],
-			backface: [{ backface: ["hidden", "visible"] }],
-			perspective: [{ perspective: [
-				h,
-				X,
-				q
-			] }],
-			"perspective-origin": [{ "perspective-origin": x() }],
-			rotate: [{ rotate: R() }],
-			"rotate-x": [{ "rotate-x": R() }],
-			"rotate-y": [{ "rotate-y": R() }],
-			"rotate-z": [{ "rotate-z": R() }],
-			scale: [{ scale: z() }],
-			"scale-x": [{ "scale-x": z() }],
-			"scale-y": [{ "scale-y": z() }],
-			"scale-z": [{ "scale-z": z() }],
-			"scale-3d": ["scale-3d"],
-			skew: [{ skew: B() }],
-			"skew-x": [{ "skew-x": B() }],
-			"skew-y": [{ "skew-y": B() }],
-			transform: [{ transform: [
-				X,
-				q,
-				"",
-				"none",
-				"gpu",
-				"cpu"
-			] }],
-			"transform-origin": [{ origin: x() }],
-			"transform-style": [{ transform: ["3d", "flat"] }],
-			translate: [{ translate: V() }],
-			"translate-x": [{ "translate-x": V() }],
-			"translate-y": [{ "translate-y": V() }],
-			"translate-z": [{ "translate-z": V() }],
-			"translate-none": ["translate-none"],
-			zoom: [{ zoom: [
-				G,
-				X,
-				q
-			] }],
-			accent: [{ accent: M() }],
-			appearance: [{ appearance: ["none", "auto"] }],
-			"caret-color": [{ caret: M() }],
-			"color-scheme": [{ scheme: [
-				"normal",
-				"dark",
-				"light",
-				"light-dark",
-				"only-dark",
-				"only-light"
-			] }],
-			cursor: [{ cursor: [
-				"auto",
-				"default",
-				"pointer",
-				"wait",
-				"text",
-				"move",
-				"help",
-				"not-allowed",
-				"none",
-				"context-menu",
-				"progress",
-				"cell",
-				"crosshair",
-				"vertical-text",
-				"alias",
-				"copy",
-				"no-drop",
-				"grab",
-				"grabbing",
-				"all-scroll",
-				"col-resize",
-				"row-resize",
-				"n-resize",
-				"e-resize",
-				"s-resize",
-				"w-resize",
-				"ne-resize",
-				"nw-resize",
-				"se-resize",
-				"sw-resize",
-				"ew-resize",
-				"ns-resize",
-				"nesw-resize",
-				"nwse-resize",
-				"zoom-in",
-				"zoom-out",
-				X,
-				q
-			] }],
-			"field-sizing": [{ "field-sizing": ["fixed", "content"] }],
-			"pointer-events": [{ "pointer-events": ["auto", "none"] }],
-			resize: [{ resize: [
-				"none",
-				"",
-				"y",
-				"x"
-			] }],
-			"scroll-behavior": [{ scroll: ["auto", "smooth"] }],
-			"scrollbar-thumb-color": [{ "scrollbar-thumb": M() }],
-			"scrollbar-track-color": [{ "scrollbar-track": M() }],
-			"scrollbar-gutter": [{ "scrollbar-gutter": [
-				"auto",
-				"stable",
-				"both"
-			] }],
-			"scrollbar-w": [{ scrollbar: [
-				"auto",
-				"thin",
-				"none"
-			] }],
-			"scroll-m": [{ "scroll-m": w() }],
-			"scroll-mx": [{ "scroll-mx": w() }],
-			"scroll-my": [{ "scroll-my": w() }],
-			"scroll-ms": [{ "scroll-ms": w() }],
-			"scroll-me": [{ "scroll-me": w() }],
-			"scroll-mbs": [{ "scroll-mbs": w() }],
-			"scroll-mbe": [{ "scroll-mbe": w() }],
-			"scroll-mt": [{ "scroll-mt": w() }],
-			"scroll-mr": [{ "scroll-mr": w() }],
-			"scroll-mb": [{ "scroll-mb": w() }],
-			"scroll-ml": [{ "scroll-ml": w() }],
-			"scroll-p": [{ "scroll-p": w() }],
-			"scroll-px": [{ "scroll-px": w() }],
-			"scroll-py": [{ "scroll-py": w() }],
-			"scroll-ps": [{ "scroll-ps": w() }],
-			"scroll-pe": [{ "scroll-pe": w() }],
-			"scroll-pbs": [{ "scroll-pbs": w() }],
-			"scroll-pbe": [{ "scroll-pbe": w() }],
-			"scroll-pt": [{ "scroll-pt": w() }],
-			"scroll-pr": [{ "scroll-pr": w() }],
-			"scroll-pb": [{ "scroll-pb": w() }],
-			"scroll-pl": [{ "scroll-pl": w() }],
-			"snap-align": [{ snap: [
-				"start",
-				"end",
-				"center",
-				"align-none"
-			] }],
-			"snap-stop": [{ snap: ["normal", "always"] }],
-			"snap-type": [{ snap: [
-				"none",
-				"x",
-				"y",
-				"both"
-			] }],
-			"snap-strictness": [{ snap: ["mandatory", "proximity"] }],
-			touch: [{ touch: [
-				"auto",
-				"none",
-				"manipulation"
-			] }],
-			"touch-x": [{ "touch-pan": [
-				"x",
-				"left",
-				"right"
-			] }],
-			"touch-y": [{ "touch-pan": [
-				"y",
-				"up",
-				"down"
-			] }],
-			"touch-pz": ["touch-pinch-zoom"],
-			select: [{ select: [
-				"none",
-				"text",
-				"all",
-				"auto"
-			] }],
-			"will-change": [{ "will-change": [
-				"auto",
-				"scroll",
-				"contents",
-				"transform",
-				X,
-				q
-			] }],
-			fill: [{ fill: ["none", ...M()] }],
-			"stroke-w": [{ stroke: [
-				W,
-				Z,
-				J,
-				Ke
-			] }],
-			stroke: [{ stroke: ["none", ...M()] }],
-			"forced-color-adjust": [{ "forced-color-adjust": ["auto", "none"] }]
-		},
-		conflictingClassGroups: {
-			"container-named": ["container-type"],
-			overflow: ["overflow-x", "overflow-y"],
-			overscroll: ["overscroll-x", "overscroll-y"],
-			inset: [
-				"inset-x",
-				"inset-y",
-				"inset-bs",
-				"inset-be",
-				"start",
-				"end",
-				"top",
-				"right",
-				"bottom",
-				"left"
-			],
-			"inset-x": ["right", "left"],
-			"inset-y": ["top", "bottom"],
-			flex: [
-				"basis",
-				"grow",
-				"shrink"
-			],
-			gap: ["gap-x", "gap-y"],
-			p: [
-				"px",
-				"py",
-				"ps",
-				"pe",
-				"pbs",
-				"pbe",
-				"pt",
-				"pr",
-				"pb",
-				"pl"
-			],
-			px: ["pr", "pl"],
-			py: ["pt", "pb"],
-			m: [
-				"mx",
-				"my",
-				"ms",
-				"me",
-				"mbs",
-				"mbe",
-				"mt",
-				"mr",
-				"mb",
-				"ml"
-			],
-			mx: ["mr", "ml"],
-			my: ["mt", "mb"],
-			size: ["w", "h"],
-			"font-size": ["leading"],
-			"fvn-normal": [
-				"fvn-ordinal",
-				"fvn-slashed-zero",
-				"fvn-figure",
-				"fvn-spacing",
-				"fvn-fraction"
-			],
-			"fvn-ordinal": ["fvn-normal"],
-			"fvn-slashed-zero": ["fvn-normal"],
-			"fvn-figure": ["fvn-normal"],
-			"fvn-spacing": ["fvn-normal"],
-			"fvn-fraction": ["fvn-normal"],
-			"line-clamp": ["display", "overflow"],
-			rounded: [
-				"rounded-s",
-				"rounded-e",
-				"rounded-t",
-				"rounded-r",
-				"rounded-b",
-				"rounded-l",
-				"rounded-ss",
-				"rounded-se",
-				"rounded-ee",
-				"rounded-es",
-				"rounded-tl",
-				"rounded-tr",
-				"rounded-br",
-				"rounded-bl"
-			],
-			"rounded-s": ["rounded-ss", "rounded-es"],
-			"rounded-e": ["rounded-se", "rounded-ee"],
-			"rounded-t": ["rounded-tl", "rounded-tr"],
-			"rounded-r": ["rounded-tr", "rounded-br"],
-			"rounded-b": ["rounded-br", "rounded-bl"],
-			"rounded-l": ["rounded-tl", "rounded-bl"],
-			"border-spacing": ["border-spacing-x", "border-spacing-y"],
-			"border-w": [
-				"border-w-x",
-				"border-w-y",
-				"border-w-s",
-				"border-w-e",
-				"border-w-bs",
-				"border-w-be",
-				"border-w-t",
-				"border-w-r",
-				"border-w-b",
-				"border-w-l"
-			],
-			"border-w-x": ["border-w-r", "border-w-l"],
-			"border-w-y": ["border-w-t", "border-w-b"],
-			"border-color": [
-				"border-color-x",
-				"border-color-y",
-				"border-color-s",
-				"border-color-e",
-				"border-color-bs",
-				"border-color-be",
-				"border-color-t",
-				"border-color-r",
-				"border-color-b",
-				"border-color-l"
-			],
-			"border-color-x": ["border-color-r", "border-color-l"],
-			"border-color-y": ["border-color-t", "border-color-b"],
-			translate: [
-				"translate-x",
-				"translate-y",
-				"translate-none"
-			],
-			"translate-none": [
-				"translate",
-				"translate-x",
-				"translate-y",
-				"translate-z"
-			],
-			"scroll-m": [
-				"scroll-mx",
-				"scroll-my",
-				"scroll-ms",
-				"scroll-me",
-				"scroll-mbs",
-				"scroll-mbe",
-				"scroll-mt",
-				"scroll-mr",
-				"scroll-mb",
-				"scroll-ml"
-			],
-			"scroll-mx": ["scroll-mr", "scroll-ml"],
-			"scroll-my": ["scroll-mt", "scroll-mb"],
-			"scroll-p": [
-				"scroll-px",
-				"scroll-py",
-				"scroll-ps",
-				"scroll-pe",
-				"scroll-pbs",
-				"scroll-pbe",
-				"scroll-pt",
-				"scroll-pr",
-				"scroll-pb",
-				"scroll-pl"
-			],
-			"scroll-px": ["scroll-pr", "scroll-pl"],
-			"scroll-py": ["scroll-pt", "scroll-pb"],
-			touch: [
-				"touch-x",
-				"touch-y",
-				"touch-pz"
-			],
-			"touch-x": ["touch"],
-			"touch-y": ["touch"],
-			"touch-pz": ["touch"]
-		},
-		conflictingClassGroupModifiers: { "font-size": ["leading"] },
-		postfixLookupClassGroups: ["container-type"],
-		orderSensitiveModifiers: [
-			"*",
-			"**",
-			"after",
-			"backdrop",
-			"before",
-			"details-content",
-			"file",
-			"first-letter",
-			"first-line",
-			"marker",
-			"placeholder",
-			"selection"
-		]
-	};
-});
-//#endregion
-//#region src/uis/cn.ts
-function ft(...e) {
-	return dt(ie(e));
-}
-//#endregion
-//#region src/utilities/index.ts
-var pt = class extends Error {
-	status;
-	constructor(e) {
-		super(), this.status = e;
-	}
 };
 //#endregion
-export { O as APPLICATION_STATUS, A as BUTTON_SIZE, pt as HttpError, t as MyButton, te as SORT_OPTIONS, D as TAENGMO, k as VIEW_OPTION, ee as applicationsStatusDropdown, E as applicationsStatusRaw, ne as buttonFontSize, j as buttonHeight, re as buttonIconSize, T as cefrLevelsDropdown, w as cefrLevelsRaw, ft as cn, C as contractTypesDropdown, S as contractTypesRaw, x as degreesDropdown, b as degreesRaw, y as isoCountryCodeDropdown, v as isoCountryCodeRaw, _ as isoCurrencyCodeDropdown, g as isoCurrencyCodeRaw, h as isoLanguageCodeDropdown, m as isoLanguageCodeRaw, p as legalEntitySizeDropdown, f as legalEntitySizeRaw, d as legalEntityTypesDropdown, u as legalEntityTypesRaw, l as physicalLocationDropdown, c as physicalLocationRaw, s as proficiencyScaleDropdown, o as proficiencyScaleRaw, a as sectorsDropdown, i as sectorsRaw, r as sexDropdown, n as sexRaw };
+export { bt as ADMIN, wt as APPLICATION_STATUS, e as BUTTON_SIZE, ht as ERROR_PLACEHOLDER, st as HttpError, mt as LOADING_PLACEHOLDER, gt as NA, _t as NOT_SPECIFIED, xt as PERSONNEL, pt as PLACEHOLDER_BOOLEAN, ft as PLACEHOLDER_DATE, dt as PLACEHOLDER_INT, ut as PLACEHOLDER_STRING, yt as POSITION_PLACEHOLDER, vt as PRIMARY_NAME_PLACEHOLDER, ct as REFRESH_TOKEN, lt as ROLE, Ct as SORT_OPTIONS, St as TAENGMO, Tt as VIEW_OPTION, ot as applicationsStatusDropdown, at as applicationsStatusRaw, n as buttonFontSize, t as buttonHeight, r as buttonIconSize, it as cefrLevelsDropdown, rt as cefrLevelsRaw, Pe as cn, nt as contractTypesDropdown, tt as contractTypesRaw, et as degreesDropdown, $e as degreesRaw, Qe as isoCountryCodeDropdown, Ze as isoCountryCodeRaw, Xe as isoCurrencyCodeDropdown, Ye as isoCurrencyCodeRaw, Je as isoLanguageCodeDropdown, qe as isoLanguageCodeRaw, Ke as legalEntitySizeDropdown, Ge as legalEntitySizeRaw, We as legalEntityTypesDropdown, Ue as legalEntityTypesRaw, He as physicalLocationDropdown, Ve as physicalLocationRaw, Be as proficiencyScaleDropdown, ze as proficiencyScaleRaw, Re as sectorsDropdown, Le as sectorsRaw, Ie as sexDropdown, Fe as sexRaw };
