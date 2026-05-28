@@ -1,11 +1,16 @@
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": {
+    "composite": false,
+    "incremental": false,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.build.tsbuildinfo",
     "noEmit": false,
     "emitDeclarationOnly": true,
     "declaration": true,
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "allowImportingTsExtensions": false,
+    "allowArbitraryExtensions": true
   },
   "include": ["src/index.ts", "src/index.d.css.ts", "src/components/**/*.tsx"]
 }

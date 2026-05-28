@@ -1,6 +1,6 @@
 {
   "name": "taengmo-ui",
-  "version": "1.0.15",
+  "version": "1.0.17",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -24,7 +24,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && tsc -p tsconfig.build.json && cp src/index.d.css.ts dist/index.d.css.ts && cp src/styles/theme.css dist/theme.css && node scripts/fix-types.mjs",
+    "build": "vite build && tsc -p tsconfig.build.json && cp src/index.d.css.ts dist/index.d.css.ts && cp src/styles/theme.css dist/theme.css && node scripts/fix-types.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "clean": "rm -rf dist"
@@ -47,7 +47,6 @@
     "tailwindcss": "^4.3.0",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",
-    "vite": "^8.0.14",
-    "vite-plugin-dts": "^5.0.1"
+    "vite": "^8.0.14"
   }
 }

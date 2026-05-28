@@ -16,7 +16,7 @@ export function MyButton(props: Props) {
         transition-colors
       "
     >
-      BT
+      BTJAAAA
     </button>
   );
 }
