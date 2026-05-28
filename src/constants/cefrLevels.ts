@@ -1,4 +1,4 @@
-import { CefrLevels, DropdownSchema } from "./types";
+import type { CefrLevels, DropdownSchema } from "./types";
 
 export const cefrLevelsRaw: CefrLevels[] = [
   {

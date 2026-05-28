@@ -1,4 +1,4 @@
-import { IsoLanguageCode, DropdownSchema } from "./types";
+import type { IsoLanguageCode, DropdownSchema } from "./types";
 
 export const isoLanguageCodeRaw: IsoLanguageCode[] = [
   {

@@ -1,4 +1,4 @@
-import { IsoCurrencyCode, DropdownSchema } from "./types";
+import type { IsoCurrencyCode, DropdownSchema } from "./types";
 
 export const isoCurrencyCodeRaw: IsoCurrencyCode[] = [
   {

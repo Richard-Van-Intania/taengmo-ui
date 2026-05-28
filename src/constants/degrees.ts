@@ -1,4 +1,4 @@
-import { Degrees, DropdownSchema } from "./types";
+import type { Degrees, DropdownSchema } from "./types";
 
 export const degreesRaw: Degrees[] = [
   {

@@ -1,7 +1,6 @@
 import "./index.css";
 
-export * from "./components/MyButton";
-
+export * from "./components";
 export * from "./constants";
 export * from "./enumerations";
 export * from "./models";

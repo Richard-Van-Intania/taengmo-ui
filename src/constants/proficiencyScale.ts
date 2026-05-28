@@ -1,4 +1,4 @@
-import { ProficiencyScale, DropdownSchema } from "./types";
+import type { ProficiencyScale, DropdownSchema } from "./types";
 
 export const proficiencyScaleRaw: ProficiencyScale[] = [
   {

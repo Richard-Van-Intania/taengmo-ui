@@ -1,4 +1,4 @@
-import { DropdownSchema, LegalEntitySize } from "./types";
+import type { DropdownSchema, LegalEntitySize } from "./types";
 
 export const legalEntitySizeRaw: LegalEntitySize[] = [
   {

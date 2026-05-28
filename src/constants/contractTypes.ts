@@ -1,4 +1,4 @@
-import { ContractTypes, DropdownSchema } from "./types";
+import type { ContractTypes, DropdownSchema } from "./types";
 
 export const contractTypesRaw: ContractTypes[] = [
   {

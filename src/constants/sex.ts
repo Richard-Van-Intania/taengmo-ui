@@ -1,4 +1,4 @@
-import { Sex, DropdownSchema } from "./types";
+import type { Sex, DropdownSchema } from "./types";
 
 export const sexRaw: Sex[] = [
   {

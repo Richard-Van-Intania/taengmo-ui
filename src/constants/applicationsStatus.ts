@@ -1,4 +1,4 @@
-import { ApplicationsStatus, DropdownSchema } from "./types";
+import type { ApplicationsStatus, DropdownSchema } from "./types";
 
 export const applicationsStatusRaw: ApplicationsStatus[] = [
   {

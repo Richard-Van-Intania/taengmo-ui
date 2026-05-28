@@ -1,4 +1,4 @@
-import { Sectors, DropdownSchema } from "./types";
+import type { Sectors, DropdownSchema } from "./types";
 
 export const sectorsRaw: Sectors[] = [
   {

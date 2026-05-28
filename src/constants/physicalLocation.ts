@@ -1,4 +1,4 @@
-import { PhysicalLocation, DropdownSchema } from "./types";
+import type { PhysicalLocation, DropdownSchema } from "./types";
 
 export const physicalLocationRaw: PhysicalLocation[] = [
   {
