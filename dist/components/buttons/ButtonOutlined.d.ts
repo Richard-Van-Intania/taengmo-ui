@@ -4,5 +4,5 @@ type Props = {
     scale: ButtonSize;
     whenClicked: React.MouseEventHandler<HTMLButtonElement>;
 };
-export default function ButtonOutlined({ label, scale, whenClicked }: Props): import("react/jsx-runtime").JSX.Element;
+export declare function ButtonOutlined({ label, scale, whenClicked }: Props): import("react/jsx-runtime").JSX.Element;
 export {};

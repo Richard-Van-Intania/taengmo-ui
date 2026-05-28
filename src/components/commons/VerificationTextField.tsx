@@ -1,4 +1,4 @@
-import Iconify from "./Iconify";
+import { Iconify } from "./Iconify";
 
 type Props = {
   label: string;
@@ -8,7 +8,7 @@ type Props = {
   updateVerification: (value: string) => void;
 };
 
-export default function VerificationTextField({ label, reference, required, verification, updateVerification }: Props) {
+export function VerificationTextField({ label, reference, required, verification, updateVerification }: Props) {
   return (
     <div>
       <div className="mb-1 text-[16px] font-medium">

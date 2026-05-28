@@ -7,7 +7,7 @@ type Props = {
   whenClicked: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-export default function ButtonFilled({ label, enable, scale, whenClicked }: Props) {
+export function ButtonFilled({ label, enable, scale, whenClicked }: Props) {
   return (
     <button
       type="button"

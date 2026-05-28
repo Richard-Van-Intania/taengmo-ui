@@ -1,1 +1,1 @@
-export default function Hr(): import("react/jsx-runtime").JSX.Element;
+export declare function Hr(): import("react/jsx-runtime").JSX.Element;

@@ -63,7 +63,7 @@ type Props = {
   cefrLevelsUuid: string;
 };
 
-export default function CefrLevelsBadge({ cefrLevelsUuid }: Props) {
+export function CefrLevelsBadge({ cefrLevelsUuid }: Props) {
   return (
     <div className={cn("rounded-full border px-3 py-1 text-[14px] font-medium", borderColor(cefrLevelsUuid), bgColor(cefrLevelsUuid), textColor(cefrLevelsUuid))}>
       {cefrLevelsDropdown.find((level) => level.value === cefrLevelsUuid)?.label ?? ERROR_PLACEHOLDER}

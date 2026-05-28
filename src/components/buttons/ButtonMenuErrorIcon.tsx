@@ -1,5 +1,5 @@
 import { cn } from "../../uis/cn";
-import Iconify from "../commons/Iconify";
+import { Iconify } from "../commons/Iconify";
 
 type Props = {
   label: string;
@@ -8,7 +8,7 @@ type Props = {
   whenClicked: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-export default function ButtonMenuErrorIcon({ label, iconify, enable, whenClicked }: Props) {
+export function ButtonMenuErrorIcon({ label, iconify, enable, whenClicked }: Props) {
   return (
     <button
       type="button"

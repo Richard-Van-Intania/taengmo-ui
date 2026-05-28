@@ -6,5 +6,5 @@ type Props = {
     scale: ButtonSize;
     whenClicked: React.MouseEventHandler<HTMLButtonElement>;
 };
-export default function ButtonFilledErrorIcon({ label, iconify, enable, scale, whenClicked }: Props): import("react/jsx-runtime").JSX.Element;
+export declare function ButtonFilledErrorIcon({ label, iconify, enable, scale, whenClicked }: Props): import("react/jsx-runtime").JSX.Element;
 export {};

@@ -5,5 +5,5 @@ type Props = {
     text: string;
     updateText: (value: string) => void;
 };
-export default function GeneralTextField({ label, required, placeholder, text, updateText }: Props): import("react/jsx-runtime").JSX.Element;
+export declare function GeneralTextField({ label, required, placeholder, text, updateText }: Props): import("react/jsx-runtime").JSX.Element;
 export {};

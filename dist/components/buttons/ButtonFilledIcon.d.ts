@@ -6,5 +6,5 @@ type Props = {
     scale: ButtonSize;
     whenClicked: React.MouseEventHandler<HTMLButtonElement>;
 };
-export default function ButtonFilledIcon({ label, iconify, enable, scale, whenClicked }: Props): import("react/jsx-runtime").JSX.Element;
+export declare function ButtonFilledIcon({ label, iconify, enable, scale, whenClicked }: Props): import("react/jsx-runtime").JSX.Element;
 export {};

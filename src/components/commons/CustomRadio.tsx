@@ -9,7 +9,7 @@ type Props = {
   updateSelectedValue: (value: string) => void;
 };
 
-export default function CustomRadio({ label, id, name, itemValue, selectedValue, updateSelectedValue }: Props) {
+export function CustomRadio({ label, id, name, itemValue, selectedValue, updateSelectedValue }: Props) {
   const isSelected: boolean = itemValue === selectedValue;
   return (
     <button

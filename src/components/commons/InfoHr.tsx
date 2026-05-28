@@ -1,6 +1,6 @@
-import Hr from "./Hr";
+import { Hr } from "./Hr";
 
-export default function InfoHr() {
+export function InfoHr() {
   return (
     <div className="bg-surface-container px-8">
       <Hr></Hr>

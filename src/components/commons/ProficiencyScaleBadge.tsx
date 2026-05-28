@@ -87,7 +87,7 @@ type Props = {
   proficiencyScaleUuid: string;
 };
 
-export default function ProficiencyScaleBadge({ proficiencyScaleUuid }: Props) {
+export function ProficiencyScaleBadge({ proficiencyScaleUuid }: Props) {
   return (
     <div className={cn("rounded-full border px-3 py-1 text-[14px] font-medium", borderColor(proficiencyScaleUuid), bgColor(proficiencyScaleUuid), textColor(proficiencyScaleUuid))}>
       {proficiencyScaleDropdown.find((scale) => scale.value === proficiencyScaleUuid)?.label ?? ERROR_PLACEHOLDER}

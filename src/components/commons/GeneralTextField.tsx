@@ -1,4 +1,4 @@
-import Iconify from "./Iconify";
+import { Iconify } from "./Iconify";
 
 type Props = {
   label: string;
@@ -8,7 +8,7 @@ type Props = {
   updateText: (value: string) => void;
 };
 
-export default function GeneralTextField({ label, required, placeholder, text, updateText }: Props) {
+export function GeneralTextField({ label, required, placeholder, text, updateText }: Props) {
   return (
     <div>
       <div className="mb-1 text-[16px] font-medium">

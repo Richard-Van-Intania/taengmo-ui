@@ -6,6 +6,6 @@ type Props = {
   value: number;
 };
 
-export default function CustomTabPanel({ children, index, value }: Props) {
+export function CustomTabPanel({ children, index, value }: Props) {
   return <Activity mode={value === index ? "visible" : "hidden"}>{children}</Activity>;
 }

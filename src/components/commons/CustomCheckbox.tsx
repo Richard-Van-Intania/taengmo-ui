@@ -7,7 +7,7 @@ type Props = {
   updateChecked: (value: boolean) => void;
 };
 
-export default function CustomCheckbox({ label, checked, updateChecked }: Props) {
+export function CustomCheckbox({ label, checked, updateChecked }: Props) {
   return (
     <div className="flex items-center">
       <Checkbox

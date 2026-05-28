@@ -1,1 +1,1 @@
-export default function InfoEmpty(): import("react/jsx-runtime").JSX.Element;
+export declare function InfoEmpty(): import("react/jsx-runtime").JSX.Element;

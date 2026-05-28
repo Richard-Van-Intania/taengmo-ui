@@ -5,5 +5,5 @@ type Props = {
     verification: string;
     updateVerification: (value: string) => void;
 };
-export default function VerificationTextField({ label, reference, required, verification, updateVerification }: Props): import("react/jsx-runtime").JSX.Element;
+export declare function VerificationTextField({ label, reference, required, verification, updateVerification }: Props): import("react/jsx-runtime").JSX.Element;
 export {};

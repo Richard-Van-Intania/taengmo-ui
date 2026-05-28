@@ -4,7 +4,7 @@ type Props = {
   text: string;
 };
 
-export default function ReadonlyTextField({ label, placeholder, text }: Props) {
+export function ReadonlyTextField({ label, placeholder, text }: Props) {
   return (
     <div>
       <div className="text-on-surface mb-1 text-[16px] font-medium">{label}</div>

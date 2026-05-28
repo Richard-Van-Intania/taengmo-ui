@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Iconify from "./Iconify";
+import { Iconify } from "./Iconify";
 
 type Props = {
   label: string;
@@ -11,7 +11,7 @@ type Props = {
   emailHasError: boolean;
 };
 
-export default function EmailTextField({ label, required, email, updateEmail, emailHasError }: Props) {
+export function EmailTextField({ label, required, email, updateEmail, emailHasError }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const showError: boolean = email.trim() !== "" && emailHasError;
 

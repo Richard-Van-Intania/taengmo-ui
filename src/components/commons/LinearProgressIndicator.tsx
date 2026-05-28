@@ -1,6 +1,6 @@
 import { LinearProgress } from "@mui/material";
 
-export default function LinearProgressIndicator() {
+export function LinearProgressIndicator() {
   return (
     <div className="fixed top-0 -right-1 -left-1 z-10">
       <LinearProgress

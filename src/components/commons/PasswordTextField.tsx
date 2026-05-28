@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Iconify from "./Iconify";
+import { Iconify } from "./Iconify";
 
 type Props = {
   label: string;
@@ -11,7 +11,7 @@ type Props = {
   passwordHasError: boolean;
 };
 
-export default function PasswordTextField({ label, required, password, updatePassword, passwordHasError }: Props) {
+export function PasswordTextField({ label, required, password, updatePassword, passwordHasError }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const showError: boolean = password !== "" && passwordHasError;

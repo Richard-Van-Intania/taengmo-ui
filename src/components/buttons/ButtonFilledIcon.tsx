@@ -1,5 +1,5 @@
 import { type ButtonSize, cn, buttonHeight, buttonIconSize, buttonFontSize } from "../../uis";
-import Iconify from "../commons/Iconify";
+import { Iconify } from "../commons/Iconify";
 
 type Props = {
   label: string;
@@ -9,7 +9,7 @@ type Props = {
   whenClicked: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-export default function ButtonFilledIcon({ label, iconify, enable, scale, whenClicked }: Props) {
+export function ButtonFilledIcon({ label, iconify, enable, scale, whenClicked }: Props) {
   return (
     <button
       type="button"

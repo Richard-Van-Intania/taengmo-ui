@@ -3,5 +3,5 @@ type Props = {
     size: number;
     color: string;
 };
-export default function Iconify({ iconify, size, color }: Props): import("react/jsx-runtime").JSX.Element;
+export declare function Iconify({ iconify, size, color }: Props): import("react/jsx-runtime").JSX.Element;
 export {};
