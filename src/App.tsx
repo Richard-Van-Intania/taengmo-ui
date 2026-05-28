@@ -1,3 +1,9 @@
+import { MyButton } from "./components/MyButton";
+
 export default function App() {
-  return <div>holaa</div>;
+  return (
+    <div>
+      <MyButton></MyButton>
+    </div>
+  );
 }
