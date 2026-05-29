@@ -12,3 +12,4 @@ export declare const PRIMARY_NAME_PLACEHOLDER: string;
 export declare const POSITION_PLACEHOLDER: string;
 export declare const ADMIN: string;
 export declare const PERSONNEL: string;
+export declare const TAENGMO: string;

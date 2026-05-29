@@ -1,6 +1,6 @@
 import { proficiencyScaleDropdown } from "../../constants";
+import { ERROR_PLACEHOLDER } from "../../statics";
 import { cn } from "../../uis";
-import { ERROR_PLACEHOLDER } from "../../utilities";
 
 function borderColor(proficiencyScaleUuid: string): string {
   switch (proficiencyScaleUuid) {

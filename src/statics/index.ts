@@ -17,3 +17,5 @@ export const PRIMARY_NAME_PLACEHOLDER: string = "Your primary name";
 export const POSITION_PLACEHOLDER: string = "Your position";
 export const ADMIN: string = "Admin";
 export const PERSONNEL: string = "Personnel";
+
+export const TAENGMO: string = "TAENGMO";

@@ -1,6 +1,6 @@
 import { cefrLevelsDropdown } from "../../constants";
+import { ERROR_PLACEHOLDER } from "../../statics";
 import { cn } from "../../uis";
-import { ERROR_PLACEHOLDER } from "../../utilities";
 
 function borderColor(cefrLevelsUuid: string): string {
   switch (cefrLevelsUuid) {

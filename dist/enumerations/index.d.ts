@@ -1,4 +1,3 @@
-export declare const TAENGMO: string;
 export declare const SORT_OPTIONS: {
     readonly CREATED_AT_ASC: "created_at_asc";
     readonly CREATED_AT_DESC: "created_at_desc";
