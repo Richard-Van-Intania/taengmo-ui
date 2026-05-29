@@ -1,6 +1,6 @@
 {
   "name": "taengmo-ui",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -58,6 +58,7 @@
     "@mui/joy": "^5.0.0-beta.52",
     "@mui/material": "^9.0.1",
     "clsx": "^2.1.1",
-    "tailwind-merge": "^3.6.0"
+    "tailwind-merge": "^3.6.0",
+    "zustand": "^5.0.14"
   }
 }
