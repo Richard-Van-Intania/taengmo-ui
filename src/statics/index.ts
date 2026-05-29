@@ -1,7 +1,4 @@
-// export const REFRESH_TOKEN: string = "__Host-refresh_token";
-export const REFRESH_TOKEN: string = "refresh_token";
-
-export const ROLE: string = "role";
+export const TAENGMO: string = "TAENGMO";
 
 export const PLACEHOLDER_STRING: string = "PLACEHOLDER_STRING";
 export const PLACEHOLDER_INT: number = 0;
@@ -15,7 +12,3 @@ export const NOT_SPECIFIED: string = "Not specified";
 
 export const PRIMARY_NAME_PLACEHOLDER: string = "Your primary name";
 export const POSITION_PLACEHOLDER: string = "Your position";
-export const ADMIN: string = "Admin";
-export const PERSONNEL: string = "Personnel";
-
-export const TAENGMO: string = "TAENGMO";

@@ -12,5 +12,5 @@
     "allowImportingTsExtensions": false,
     "allowArbitraryExtensions": true
   },
-  "include": ["src/index.ts", "src/index.d.css.ts", "src/components/**/*.tsx", "src/statics/**/*.ts"]
+  "include": ["src/index.ts", "src/index.d.css.ts", "src/components/**/*.tsx"]
 }

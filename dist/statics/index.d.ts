@@ -1,5 +1,4 @@
-export declare const REFRESH_TOKEN: string;
-export declare const ROLE: string;
+export declare const TAENGMO: string;
 export declare const PLACEHOLDER_STRING: string;
 export declare const PLACEHOLDER_INT: number;
 export declare const PLACEHOLDER_DATE: Date;
@@ -10,6 +9,3 @@ export declare const NA: string;
 export declare const NOT_SPECIFIED: string;
 export declare const PRIMARY_NAME_PLACEHOLDER: string;
 export declare const POSITION_PLACEHOLDER: string;
-export declare const ADMIN: string;
-export declare const PERSONNEL: string;
-export declare const TAENGMO: string;

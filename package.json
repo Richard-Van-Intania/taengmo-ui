@@ -1,6 +1,6 @@
 {
   "name": "taengmo-ui",
-  "version": "1.0.30",
+  "version": "1.0.32",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -11,10 +11,6 @@
       "types": "./dist/index.d.ts",
       "style": "./dist/index.css",
       "import": "./dist/index.js"
-    },
-    "./statics": {
-      "types": "./dist/statics/index.d.ts",
-      "import": "./dist/statics/index.js"
     },
     "./style.css": "./dist/index.css",
     "./index.css": "./dist/index.css",
